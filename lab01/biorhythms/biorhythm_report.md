@@ -64,3 +64,77 @@ Time taken (rough estimates):
 25 minutes to write the code and figure out the maths (ignoring the plotting part)
 60? minutes to make the plotting logic and formatting
 15 minutes to write the report and make the screenshots
+
+### `biorhythm_ai_fix.py` (task D)
+
+Noticeable changes:
+- Added Constants for better readability
+- Improved data validation (re-prompting for invalid inputs)
+- Moved things into functions
+
+### `biorhythm_ai_gen_context.py` (task E)
+> It had full access to the codebase and was able to use the original code as reference.
+
+prompt:
+```
+Your job is to create a python program that prompts the user for their name and date of birth and utilise that to calculate their biorhythm data.
+
+The program should calculate their biorhythm physical, emotional and intellectual cycles and output them in the console.
+
+In cases where the value is above 0.5 or below -0.5 it should motivate or reassure the user. In cases where the value is below -0.5 it should inform the user if the next day's value is higher or lower.
+
+Utilise matplotlib library to plot the user's cycles in a range -30 days from today and +60 days from today. In cases, where their birthday is visible (infants) mark it on the plot.
+
+As a trivia (not marked on the plot), print in the console the date their cycles are the closest to intersecting with each other (assume 5% tolerance) to either -1, 0 or 1 values and print in the console the date that will happen and the predicted age the user will be.
+
+Plot result should be stored in a named filed in a directory called output inside the biorhythms directory inside current directory. Plot should be visually appealing and understandable to the user. It should have a title, axis labels, legend and grid.
+```
+
+Model: Claude Sonnet 4.5
+
+***Notes***:
+It's worth noting that the fix and the generated code are very similar. Main difference is quality of life changes and *way* better structure. It's also worth noting that it took the humour I added due to boredom and rolled with it.
+
+### `biorhythm_ai_gen_contextless.py` (task E*)
+> It had NO access to the codebase or previously generated code. It's all generated based on the given prompt.
+
+prompt:
+```
+Your job is to create a python program that prompts the user for their name and date of birth and utilise that to calculate their biorhythm data.
+
+The program should calculate their biorhythm physical, emotional and intellectual cycles and output them in the console.
+
+In cases where the value is above 0.5 or below -0.5 it should motivate or reassure the user. In cases where the value is below -0.5 it should inform the user if the next day's value is higher or lower.
+
+Utilise matplotlib library to plot the user's cycles in a range -30 days from today and +60 days from today. In cases, where their birthday is visible (infants) mark it on the plot.
+
+As a trivia (not marked on the plot), print in the console the date their cycles are the closest to intersecting with each other (assume 5% tolerance) to either -1, 0 or 1 values and print in the console the date that will happen and the predicted age the user will be.
+
+Plot result should be stored in a named filed in a directory called output inside the biorhythms directory inside current directory. Plot should be visually appealing and understandable to the user. It should have a title, axis labels, legend and grid.
+```
+
+Model: ChatGPT-5.2
+
+***Notes***:
+Differences are mostly semantic, but the structure is similar to the code generated with context. Major differences are in the way the code is outputed to the user. The constants and moving everything into funcitons is the same as context version or the fix version. Which makes sense as it's just a better way to write it for maintainability and readability. It did add emojis, which is a love it or hate it personal thing. Biggest difference is the save location, but it's most likely due to the fact that I didn't specify the exact path in the prompt and it's a 5 second fix, so it's not a big deal.
+
+Console output:
+```yaml
+Enter your name: test
+Enter your date of birth (YYYY-MM-DD): 2000-01-01
+
+--- Today's Biorhythm ---
+Physical:     0.14
+Emotional:    0.97
+Intellectual: -0.46
+
+🙂 test, your physical cycle is balanced today (0.14). Stay steady!
+💪 test, your emotional cycle is high today (0.97). Great time to shine!
+🙂 test, your intellectual cycle is balanced today (-0.46). Stay steady!
+
+Plot saved to: /root/io/computational-intelligence-class/biorhythms/output/test_biorhythm.png
+
+--- Trivia ---
+Closest cycle intersection occurs on: 2029-02-03
+Predicted age on that date: 29 years
+```
