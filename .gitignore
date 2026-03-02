@@ -24,6 +24,7 @@ MANIFEST
 target/
 
 .idea/
+.vscode
 
 .env
 .envrc
