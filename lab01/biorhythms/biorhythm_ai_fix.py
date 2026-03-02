@@ -19,7 +19,7 @@ MAX_INTERSECTION_SEARCH_DAYS = 45656
 PAST_WINDOW_DAYS = 30
 FUTURE_WINDOW_DAYS = 60
 
-OUTPUT_DIR = "lab01/biorhythms/output"
+OUTPUT_DIR = "output"
 OUTPUT_FILE = "biorhythm_plot.png"
 
 

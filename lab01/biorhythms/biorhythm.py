@@ -160,7 +160,7 @@ plt.grid(True, alpha=0.3)
 plt.tight_layout()
 
 # Create output directory if it doesn't exist
-os.makedirs('lab01/biorhythms/output', exist_ok=True)
-plt.savefig('lab01/biorhythms/output/biorhythm_plot.png', dpi=600)
+os.makedirs('output', exist_ok=True)
+plt.savefig('output/biorhythm_plot.png', dpi=600)
 print()
-print("Plot saved to lab01/biorhythms/output/biorhythm_plot.png")
+print("Plot saved to output/biorhythm_plot.png")
