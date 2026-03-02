@@ -10,7 +10,7 @@ python3 trebuchet.py
 ```
 Afterwards answer the prompts with information about the trebuchet and the projectile.
 
-### Output
+### Console output
 ```yaml
 ==================================================
 TARGET DISTANCE: 252 meters
@@ -49,8 +49,10 @@ Plot saved to trebuchet/output/trebuchet_plot.png
 ### Plot output example
 **Trebuchet plot for 122m distance**
 ![trebuchet-plot1](./markdown/trebuchet_plot_example1.png)
+<br><br><br>
 **Trebuchet plot for 92m distance**
 ![trebuchet-plot2](./markdown/trebuchet_plot_example2.png)
+<br><br><br>
 **Trebuchet plot for 248m distance**
 ![trebuchet-plot3](./markdown/trebuchet_plot_example3.png)
 
@@ -85,21 +87,21 @@ y(t) = h + v_0 \sin(\theta) \cdot t - \frac{1}{2} g t^2
 ```
 
 Where:
-- $ x(t) $ is the horizontal distance at time $ t $ (in meters)
-- $ y(t) $ is the height at time $ t $ (in meters)
-- $ t $ is the time since launch (in seconds)
+- $x(t)$ is the horizontal distance at time $t$ (in meters)
+- $y(t)$ is the height at time $t$ (in meters)
+- $t$ is the time since launch (in seconds)
 - All other variables are as defined above
 
 ***3. Impact Time Calculation***
-The time when the projectile hits the ground ($ y = 0 $) is found by solving the quadratic equation:
+The time when the projectile hits the ground ($y = 0$) is found by solving the quadratic equation:
 
 ```math
 \frac{1}{2} g t^2 - v_0 \sin(\theta) \cdot t - h = 0
 ```
 Using the quadratic formula with:
-- $ a = \frac{1}{2} g $
-- $ b = -v_0 \sin(\theta) $
-- $ c = -h $
+- $a = \frac{1}{2} g$
+- $b = -v_0 \sin(\theta)$
+- $c = -h$
 
 The positive root gives the impact time:
 ```math
@@ -107,8 +109,8 @@ t_{impact} = \frac{-b + \sqrt{b^2 - 4ac}}{2a}
 ```
 
 Where:
-- $ t_{impact} $ is the time when the projectile reaches ground level (in seconds)
-- The discriminant $ b^2 - 4ac $ ensures a real solution exists
+- $t_{impact}$ is the time when the projectile reaches ground level (in seconds)
+- The discriminant $b^2 - 4ac$ ensures a real solution exists
 
-> **Note**
+> [!NOTE]
 > All angle calculations in the code use `math.radians()` to convert from degrees to radians, as Python's trigonometric functions expect radian input.
