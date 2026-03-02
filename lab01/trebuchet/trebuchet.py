@@ -10,7 +10,7 @@ SHOT_RANGE = [50, 340] # meters
 ERROR_MARGIN = 5 # meters
 DEGREES_RANGE = [0, 90] # degrees
 
-OUTPUT_DIR = "trebuchet/output"
+OUTPUT_DIR = "./output"
 OUTPUT_FILE = "trebuchet_plot.png"
 
 
