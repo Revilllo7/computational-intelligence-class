@@ -3,6 +3,7 @@ import math
 import os
 
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 
 
 PHYSICAL_CYCLE_DAYS = 23
@@ -133,11 +134,11 @@ def plot_biorhythms(name: str, birth_date: datetime.date, today_date: datetime.d
     plt.plot(dates, intellectual_values, label="Intellectual", linewidth=2)
 
     plt.axhline(0, color="black", linestyle="--", linewidth=0.8)
-    plt.axvline(today_date, color="blue", linestyle="--", linewidth=1.2, label="Today")
+    plt.axvline(float(mdates.date2num(today_date)), color="blue", linestyle="--", linewidth=1.2, label="Today")
 
     if start_date <= birth_date <= end_date:
         plt.axvline(
-            birth_date,
+            float(mdates.date2num(birth_date)),
             color="red",
             linestyle=":",
             linewidth=2,

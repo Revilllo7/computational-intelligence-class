@@ -110,7 +110,7 @@ def find_next_intersection(start_day, max_search_days=45656): # I took the oldes
 
 intersection_day, intersection_value = find_next_intersection(age_in_days)
 
-if intersection_day:
+if intersection_day and intersection_value is not None:
     # Format intersection value to avoid -0.000
     formatted_value = abs(intersection_value) if abs(intersection_value) < 0.01 else intersection_value
     print(f"All three biorhythms will intersect at approximately {formatted_value:.3f} on day {intersection_day}")
