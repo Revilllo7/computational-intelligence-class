@@ -18,7 +18,7 @@ MAX_SEARCH_DAYS = 365 * 125
 PAST_WINDOW_DAYS = 30
 FUTURE_WINDOW_DAYS = 60
 
-OUTPUT_DIR = "lab01/biorhythms/output"
+OUTPUT_DIR = "biorhythms/output"
 OUTPUT_FILE = "biorhythm_ai_gen_plot.png"
 
 
