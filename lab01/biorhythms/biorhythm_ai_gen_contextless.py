@@ -125,7 +125,8 @@ def main():
 
     # Mark birthday if visible (for infants)
     if start_date <= dob <= end_date:
-        plt.axvline(dob, linestyle="--", label="Birthday")
+        dob_index = dates.index(dob)
+        plt.axvline(dob_index, linestyle="--", label="Birthday")
 
     plt.title(f"{name}'s Biorhythm Cycles")
     plt.xlabel("Date")
