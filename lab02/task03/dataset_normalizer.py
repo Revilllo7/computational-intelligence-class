@@ -1,12 +1,3 @@
-"""Dataset normalization comparison for Iris sepal measurements.
-
-This script:
-1. Loads iris_big.csv dataset
-2. Extracts sepal length and sepal width
-3. Creates three scatter plots: original, min-max normalized, z-score scaled
-4. Computes and reports statistics for each version
-"""
-
 from __future__ import annotations
 
 from pathlib import Path
@@ -25,7 +16,7 @@ TARGET_COLUMN = "target_name"
 
 
 def min_max_normalize(data: np.ndarray) -> np.ndarray:
-    """Normalize data to [0, 1] range using min-max scaling."""
+    #Normalize data to [0, 1] range using min-max scaling.
     min_val = data.min(axis=0)
     max_val = data.max(axis=0)
     range_val = max_val - min_val
@@ -34,7 +25,7 @@ def min_max_normalize(data: np.ndarray) -> np.ndarray:
 
 
 def z_score_normalize(data: np.ndarray) -> np.ndarray:
-    """Normalize data using z-score scaling (standardization)."""
+    #Normalize data using z-score scaling (standardization).
     mean = data.mean(axis=0)
     std = data.std(axis=0)
     std[std == 0] = 1.0
@@ -42,7 +33,7 @@ def z_score_normalize(data: np.ndarray) -> np.ndarray:
 
 
 def compute_statistics(data: np.ndarray, labels: list[str]) -> dict[str, dict[str, float]]:
-    """Compute min, max, mean, and std for each column."""
+    #Compute min, max, mean, and std for each column.
     stats = {}
     for idx, label in enumerate(labels):
         stats[label] = {
@@ -62,7 +53,7 @@ def create_scatter_plot(
     ylabel: str,
     output_path: Path,
 ) -> None:
-    """Create scatter plot with species-based coloring."""
+    #Create scatter plot with species-based coloring.
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     
     classes = sorted(species.unique())
@@ -98,7 +89,7 @@ def create_scatter_plot(
 
 
 def print_statistics_table(stats: dict[str, dict[str, float]], version_name: str) -> None:
-    """Print formatted statistics table."""
+    # Print formatted statistics table.
     print(f"\n{version_name}:")
     print(f"{'Metric':<20} {'Sepal Length':<15} {'Sepal Width':<15}")
     print("-" * 50)
