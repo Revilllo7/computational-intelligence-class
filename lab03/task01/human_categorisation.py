@@ -3,7 +3,8 @@ from sklearn.model_selection import train_test_split
 
 df = pd.read_csv("../data/iris_big.csv")
 
-(train_set, test_set) = train_test_split(df, test_size=0.7, random_state=292583)
+(train_set, test_set) = train_test_split(df, test_size=0.3, random_state=292583)
+# 30% of the data is used for testing, 70% for training.
 
 def classify_iris(sepal_length: float, sepal_width: float, petal_length: float, petal_width: float) -> str:
     if (sepal_length < 6.3 and petal_length < 2.1 or (petal_width < 0.5 and sepal_width > 3.0)):
@@ -27,7 +28,7 @@ def classify_iris(sepal_length: float, sepal_width: float, petal_length: float, 
 # narrow petal (<0.5)       wide petal (>2.0)       medium petal (1.5-2.0)
 # this gave us around 90% accuracy.
 
-# Adjusting values individually and checking each change we got a maximum of: 97.33% (1022/1050)
+# Adjusting values individually and checking each change we got a maximum of: 98% (441/450)
 # Final values:
 # Setosa:                   virginica:              versicolor:
 # sepal length (<6.3)       sepal length (>7.27)    sepal length (6.3-7.27)              

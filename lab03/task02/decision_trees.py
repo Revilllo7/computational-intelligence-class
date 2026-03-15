@@ -19,7 +19,7 @@ FEATURE_COLUMNS = [
 	"petal width (cm)",
 ]
 TARGET_COLUMN = "target_name"
-TEST_SIZE = 0.7
+TEST_SIZE = 0.3
 RANDOM_STATE = 292583
 TREE_PLOT_FILE = OUTPUT_DIR / "decision_tree_plot.png"
 

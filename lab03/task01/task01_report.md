@@ -11,18 +11,18 @@ python3 human_categorization.py
 
 ### Console output
 ```yaml
-Good predictions: 1022/1050
-Wrong predictions: 28/1050
+Good predictions: 441/450
+Wrong predictions: 9/450
 
 
-Accuracy: 97.33%
+Accuracy: 98.00%
 ==========================================================================================
       sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm) target_name
-344                5.62              3.91               1.83              0.46      setosa
-481                5.12              3.77               1.52              0.16      setosa
-1099               7.48              3.31               6.04              2.36   virginica
-717                5.81              2.97               4.08              1.20  versicolor
-1435               6.58              2.85               5.83              1.97   virginica
+1029               7.25              3.06               5.84              1.68   virginica
+852                6.98              2.92               4.98              1.54  versicolor
+533                6.07              2.77               5.18              1.64  versicolor
+990                6.60              3.12               4.62              1.57  versicolor
+490                5.60              4.02               1.26              0.26      setosa
 ...                 ...               ...                ...               ...         ...
 741                6.02              2.61               3.83              0.96  versicolor
 1262               6.92              3.18               5.39              2.23   virginica
@@ -30,15 +30,15 @@ Accuracy: 97.33%
 1012               6.82              3.03               5.58              2.12   virginica
 1323               7.69              2.80               5.89              1.69   virginica
 
-[450 rows x 5 columns]
+[1050 rows x 5 columns]
 ```
 
 ### Result summary:
-- Total samples: `1050`
-- Good predictions: `1022`
-- Wrong predictions: `28`
-- Accuracy: `97.33%`
+- Total samples: `450`
+- Good predictions: `441`
+- Wrong predictions: `9`
+- Accuracy: `98.00%`
 
 ### Data interpretation:
-- The rule-based categorization approach achieved a high accuracy of `97.33%` on the clean Iris dataset.
+- The rule-based categorization approach achieved a high accuracy of `98.00%` on the clean Iris dataset.
 - The misclassified samples are mostly due to overlapping feature values between `versicolor` and `virginica`, which are known to have similar measurements in some cases.
