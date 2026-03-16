@@ -221,13 +221,13 @@ def main() -> None:
 
     results = []
 
-    for name in classifiers:
+    for name, clf in classifiers:
         print("-" * 90)
         print(f"  {name}")
         print("-" * 90)
 
         accuracy, correct, wrong, confusion_df = evaluate_classifier(
-            plt.clf, X_train, y_train, X_test, y_test, labels
+            clf, X_train, y_train, X_test, y_test, labels
         )
 
         print_classifier_block(name, accuracy, correct, wrong, total, confusion_df)
