@@ -1,7 +1,15 @@
+from pathlib import Path
+
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-df = pd.read_csv("../data/iris_big.csv")
+BASE_DIR = Path(__file__).resolve().parent
+DATA_FILE = BASE_DIR.parent / "data" / "iris_big.csv"
+OUTPUT_DIR = BASE_DIR / "output"
+
+df = pd.read_csv(DATA_FILE)
+
+
 
 (train_set, test_set) = train_test_split(df, test_size=0.3, random_state=292583)
 # 30% of the data is used for testing, 70% for training.
@@ -41,7 +49,7 @@ def main():
     len = test_set.shape[0]
 
     for index in range(len):
-        if classify_iris(test_set.iloc[index][0], test_set.iloc[index][1], test_set.iloc[index][2], test_set.iloc[index][3]) == test_set.iloc[index][4]:
+        if classify_iris(test_set.iloc[index].iloc[0], test_set.iloc[index].iloc[1], test_set.iloc[index].iloc[2], test_set.iloc[index].iloc[3]) == test_set.iloc[index].iloc[4]:
             good_predictions += 1
 
     print(f"Good predictions: {good_predictions}/{len}")
