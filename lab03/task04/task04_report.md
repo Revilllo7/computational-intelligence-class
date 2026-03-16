@@ -1,6 +1,6 @@
 # Lab03
 
-## Task04: Diagnosis dataset - multi-classifier benchmark
+## Task04: Diagnosis dataset - multi-classifier comparison
 
 `diagnosis.py` evaluates six classifiers on `diagnosis.csv` and reports:
 - Accuracy
@@ -232,6 +232,48 @@ Metrics log saved to: /root/io/computational-intelligence-class/lab03/task04/out
 - **Precision (binary, diagnosis=1)**: among samples predicted as sick, how many are truly sick.
 - **Recall/Sensitivity (binary, diagnosis=1)**: among truly sick samples, how many are correctly detected.
 - **Weighted Precision/Recall**: class-wise precision/recall averaged with class-frequency weights.
+
+<br>
+
+**TP** - True Positives (sick correctly identified) <br>
+**TN** - True Negatives (healthy correctly identified) <br>
+**FP** - False Positives (healthy incorrectly identified as sick) <br>
+**FN** - False Negatives (sick incorrectly identified as healthy) <br>
+
+
+**Accuracy**:
+```math
+Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
+```
+> How accurate the model is for EVERY case.
+
+*Question D* <br>
+If we classify all samples as "healthy" (diagnosis=0), we would get `900/1400 = 64.3%` accuracy, which shows that accuracy alone can be MISLEADING in imbalanced datasets.
+
+<br>
+
+**Precision**:
+```math
+Precision = \frac{TP}{TP + FP}
+```
+> When the model predicts "sick", how often is it correct?
+
+<br>
+
+**Recall/Sensitivity**:
+```math
+Recall = \frac{TP}{TP + FN}
+```
+> When the patient is truly "sick", how often does the model detect it?
+
+<br>
+
+*Question C* <br>
+- Avoid classifying healthy as sick:
+**precision**
+
+- Avoid classifying sick as healthy:
+**recall/sensitivity**
 
 <br>
 
