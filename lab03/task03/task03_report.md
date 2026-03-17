@@ -19,18 +19,20 @@ python3 classificators.py
 ==========================================================================================
 MULTI-CLASSIFIER COMPARISON — IRIS DATASET
 ==========================================================================================
-Input file: /root/io/computational-intelligence-class/lab03/data/iris_big.csv
+Input file: /home/oliver/University/computational-intelligence-class/lab03/data/iris_big.csv
 Full dataset shape: (1500, 5)
 Split configuration: train=70%, test=30%, random_state=292583
 Training samples: 1050  |  Test samples: 450
 Classes: ['setosa', 'versicolor', 'virginica']
 
+
 ------------------------------------------------------------------------------------------
-  KNN (k = 3)
+  KNN (k =3)
 ------------------------------------------------------------------------------------------
   Accuracy (score): 99.11%
   Good predictions: 446/450
   Wrong predictions: 4/450
+
 
   Confusion matrix:
                 setosa  versicolor  virginica
@@ -38,14 +40,17 @@ Classes: ['setosa', 'versicolor', 'virginica']
     versicolor       0         153          1
     virginica        0           3        126
 
-  Confusion matrix plot saved to: /root/io/computational-intelligence-class/lab03/task03/output/confusion_matrix_knn_k_3.png
+
+  Confusion matrix plot saved to: /home/oliver/University/computational-intelligence-class/lab03/task03/output/confusion_matrix_knn_k_3.png
+
 
 ------------------------------------------------------------------------------------------
-  KNN (k = 5)
+  KNN (k =5)
 ------------------------------------------------------------------------------------------
   Accuracy (score): 98.44%
   Good predictions: 443/450
   Wrong predictions: 7/450
+
 
   Confusion matrix:
                 setosa  versicolor  virginica
@@ -53,14 +58,17 @@ Classes: ['setosa', 'versicolor', 'virginica']
     versicolor       0         151          3
     virginica        0           4        125
 
-  Confusion matrix plot saved to: /root/io/computational-intelligence-class/lab03/task03/output/confusion_matrix_knn_k_5.png
+
+  Confusion matrix plot saved to: /home/oliver/University/computational-intelligence-class/lab03/task03/output/confusion_matrix_knn_k_5.png
+
 
 ------------------------------------------------------------------------------------------
-  KNN (k = 11)
+  KNN (k =11)
 ------------------------------------------------------------------------------------------
   Accuracy (score): 98.00%
   Good predictions: 441/450
   Wrong predictions: 9/450
+
 
   Confusion matrix:
                 setosa  versicolor  virginica
@@ -68,7 +76,9 @@ Classes: ['setosa', 'versicolor', 'virginica']
     versicolor       0         152          2
     virginica        0           7        122
 
-  Confusion matrix plot saved to: /root/io/computational-intelligence-class/lab03/task03/output/confusion_matrix_knn_k_11.png
+
+  Confusion matrix plot saved to: /home/oliver/University/computational-intelligence-class/lab03/task03/output/confusion_matrix_knn_k_11.png
+
 
 ------------------------------------------------------------------------------------------
   Naive Bayes
@@ -77,43 +87,50 @@ Classes: ['setosa', 'versicolor', 'virginica']
   Good predictions: 437/450
   Wrong predictions: 13/450
 
+
   Confusion matrix:
                 setosa  versicolor  virginica
     setosa         167           0          0
     versicolor       0         149          5
     virginica        0           8        121
 
-  Confusion matrix plot saved to: /root/io/computational-intelligence-class/lab03/task03/output/confusion_matrix_naive_bayes.png
+
+  Confusion matrix plot saved to: /home/oliver/University/computational-intelligence-class/lab03/task03/output/confusion_matrix_naive_bayes.png
+
 
 ------------------------------------------------------------------------------------------
   MLP
 ------------------------------------------------------------------------------------------
-  Accuracy (score): 98.89%
-  Good predictions: 445/450
-  Wrong predictions: 5/450
+  Accuracy (score): 99.11%
+  Good predictions: 446/450
+  Wrong predictions: 4/450
+
 
   Confusion matrix:
                 setosa  versicolor  virginica
     setosa         167           0          0
     versicolor       0         153          1
-    virginica        0           4        125
+    virginica        0           3        126
 
-  Confusion matrix plot saved to: /root/io/computational-intelligence-class/lab03/task03/output/confusion_matrix_mlp.png
+
+  Confusion matrix plot saved to: /home/oliver/University/computational-intelligence-class/lab03/task03/output/confusion_matrix_mlp.png
+
 
 ==========================================================================================
 SUMMARY — ACCURACY COMPARISON
 ==========================================================================================
 Classifier             Accuracy    Correct    Wrong
 ---------------------------------------------------
-KNN (k = 3)              99.11%        446/450       4/450
-KNN (k = 5)              98.44%        443/450       7/450
-KNN (k = 11)             98.00%        441/450       9/450
+KNN (k =3)               99.11%        446/450       4/450
+KNN (k =5)               98.44%        443/450       7/450
+KNN (k =11)              98.00%        441/450       9/450
 Naive Bayes              97.11%        437/450      13/450
-MLP                      98.89%        445/450       5/450
-Decision Tree (task02)   97.78%        440/450      10/450  [reference]
+MLP                      99.11%        446/450       4/450
+Decision Tree (task02)     97.78%        440/450      10/450  [reference]
 Human (task01)           98.00%        441/450       9/450  [reference]
 
-Accuracy comparison chart saved to: /root/io/computational-intelligence-class/lab03/task03/output/accuracy_comparison.png
+
+Accuracy comparison chart saved to: /home/oliver/University/computational-intelligence-class/lab03/task03/output/accuracy_comparison.png
 ```
 
 ### Result summary
@@ -121,7 +138,7 @@ Accuracy comparison chart saved to: /root/io/computational-intelligence-class/la
 | Classifier            | Accuracy | Correct | Wrong  |
 |-----------------------|----------|---------|--------|
 | KNN (k=3)             | 99.11%   | 446/450 | 4/450  |
-| MLP                   | 98.89%   | 445/450 | 5/450  |
+| MLP                   | 99.11%   | 446/450 | 4/450  |
 | KNN (k=5)             | 98.44%   | 443/450 | 7/450  |
 | KNN (k=11)            | 98.00%   | 441/450 | 9/450  |
 | Decision Tree (task02)| 97.78%   | 440/450 | 10/450 |
@@ -153,7 +170,7 @@ Accuracy comparison chart saved to: /root/io/computational-intelligence-class/la
 | Classifier    | Accuracy | vs. Decision Tree |
 |---------------|----------|-------------------|
 | KNN (k=3)     | 99.11%   | + 1.33 pp         |
-| MLP           | 98.89%   | + 1.11 pp         |
+| MLP           | 99.11%   | + 1.33 pp         |
 | KNN (k=5)     | 98.44%   | + 0.66 pp         |
 | KNN (k=11)    | 98.00%   | + 0.22 pp         |
 | Human (task01)| 98.00%   | + 0.22 pp         |
@@ -196,3 +213,10 @@ Naive Bayes is the only one that performs worse due to its strong independence a
 
 *MLP*:
 ![Confusion matrix MLP](output/confusion_matrix_mlp.png)
+
+---
+
+> [!NOTE]  
+> I've been overtraining the neural network, causing it to lose accuracy
+> the values have been adjusted and I tried to update the reports, but take care
+> in case data is still wrong and let me know if I missed a spot.

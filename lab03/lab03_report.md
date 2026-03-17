@@ -76,7 +76,7 @@ Evaluates five classifiers on Iris dataset using the **identical split** (70/30,
 | Classifier | Accuracy | Correct |
 |-----------|----------|---------|
 | KNN (k=3) | 99.11% | 446/450 |
-| MLP | 98.89% | 445/450 |
+| MLP | 99.11% | 445/450 |
 | KNN (k=5) | 98.44% | 443/450 |
 | KNN (k=11) | 98.00% | 441/450 |
 | Decision Tree (ref.) | 97.78% | 440/450 |
@@ -101,7 +101,7 @@ Evaluates six classifiers on a medical diagnosis dataset (`diagnosis.csv`, 1400 
 ### Classifiers Evaluated
 - KNN ($k = 3, 5, 11$)
 - Gaussian Naive Bayes
-- MLP (1 hidden layer, 100 neurons)
+- MLP (1 hidden layer, 75 neurons for task03, 100 neurons for task04)
 - Decision Tree
 
 ### Results Summary
@@ -126,3 +126,10 @@ Evaluates six classifiers on a medical diagnosis dataset (`diagnosis.csv`, 1400 
 - [Task 02: Decision Trees](task02/task02_report.md)
 - [Task 03: Multi-Classifier Comparison](task03/task03_report.md)
 - [Task 04: Diagnosis Benchmark](task04/task04_report.md)
+
+---
+
+> [!NOTE]  
+> I've been overtraining the neural network in task03, causing it to lose accuracy
+> the values have been adjusted and I tried to update the reports, but take care
+> in case data is still wrong and let me know if I missed a spot.

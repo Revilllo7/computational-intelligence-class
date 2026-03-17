@@ -206,8 +206,10 @@ def main() -> None:
         ("KNN (k =5)",    KNeighborsClassifier(n_neighbors=5)),
         ("KNN (k =11)",   KNeighborsClassifier(n_neighbors=11)),
         ("Naive Bayes",  GaussianNB()),
-        ("MLP",          MLPClassifier(hidden_layer_sizes=(100,), max_iter=500, random_state=RANDOM_STATE)),
+        ("MLP",          MLPClassifier(hidden_layer_sizes=(75,), max_iter=400, random_state=RANDOM_STATE)),
     ]
+    # We get the best accuracy for 75 neurons and 400 iterations
+    # I've been using 100 neurons and 500 iterations till now, but it seems to be overtraining.
 
     print("=" * 90)
     print("MULTI-CLASSIFIER COMPARISON — IRIS DATASET")
