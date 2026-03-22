@@ -1,0 +1,20 @@
+Initial state
+w_input_hidden=
+[[ 0.2 -0.3]
+ [-0.5  0.1]]
+b_hidden=[ 0.4 -0.2]
+w_hidden_output=[ 0.3 -0.4]
+b_output=0.200000
+
+forward_output=0.234075
+target=0.800000
+loss=0.160136
+eta=0.100000
+
+Updated state
+w_input_hidden=
+[[ 0.20239972 -0.29960005]
+ [-0.50319962  0.09946673]]
+b_hidden=[ 0.40399953 -0.2053327 ]
+w_hidden_output=[ 0.3350934  -0.37850085]
+b_output=0.256593
