@@ -84,7 +84,7 @@ def main() -> None:
 	print("Updated weights and biases after one backprop step:")
 	print(format_weights(new_state))
 
-	report_path = OUTPUT_DIR / "task01_weight_update.txt"
+	report_path = OUTPUT_DIR / "weight_update.txt"
 	report_path.write_text(
 		"Initial state\n"
 		+ format_weights(state)
