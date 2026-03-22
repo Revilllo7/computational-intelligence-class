@@ -3,12 +3,13 @@ from __future__ import annotations
 import sys
 import numpy as np
 from pathlib import Path
-from algorithms import NetworkState, backprop_step, forward_pass, mse_loss
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(PROJECT_ROOT) not in sys.path:
 	sys.path.insert(0, str(PROJECT_ROOT))
+
+from algorithms import NetworkState, backprop_step, forward_pass, mse_loss
 
 
 BASE_DIR = Path(__file__).resolve().parent
