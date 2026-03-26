@@ -1,0 +1,8 @@
+# Ignore model weights
+yolov8n.pt
+
+# Ignore output and input media
+*.mp4
+*.png
+*.jpg
+*.json
