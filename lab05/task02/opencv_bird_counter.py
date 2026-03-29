@@ -239,6 +239,18 @@ def _write_output_csv(output_csv: Path, rows: list[ImageResult]) -> None:
 			)
 
 
+def _ambiguity_accepted(number: str, algorithm_count: str, official_count: str) -> bool:
+	if not algorithm_count.isdigit():
+		return False
+
+	algo = int(algorithm_count)
+	if number == "6":
+		return algo in {5, 6}
+	if number == "14":
+		return algo in {15, 16, 17}
+	return official_count.isdigit() and algo == int(official_count)
+
+
 def _build_arg_parser() -> argparse.ArgumentParser:
 	root = _project_root()
 	parser = argparse.ArgumentParser(description="Count birds in JPG images using OpenCV blobs.")
@@ -331,14 +343,19 @@ def main() -> None:
 	ordered_results = [result_by_name[path.stem] for path in image_paths if path.stem in result_by_name]
 	_write_output_csv(config.output_csv, ordered_results)
 
-	correct = 0
+	numeric_correct = 0
+	ambiguity_correct = 0
 	for result in ordered_results:
 		official_raw = result.official_count.strip().rstrip("?")
 		if official_raw.isdigit() and result.algorithm_count.isdigit() and int(official_raw) == int(result.algorithm_count):
-			correct += 1
+			numeric_correct += 1
+
+		if _ambiguity_accepted(result.number.strip(), result.algorithm_count.strip(), result.official_count.strip()):
+			ambiguity_correct += 1
 
 	print(f"Processed images: {len(ordered_results)}")
-	print(f"Correctly matched counts (numeric rows): {correct}")
+	print(f"Correctly matched counts (numeric rows): {numeric_correct}")
+	print(f"Correctly matched counts (with ambiguity rules): {ambiguity_correct}")
 	print(f"CSV written to: {config.output_csv}")
 	print(f"Review artifacts in: {config.output_dir}")
 
