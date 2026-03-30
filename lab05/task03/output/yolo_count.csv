@@ -1,0 +1,17 @@
+number,picture_name,official_count,algorithm_count,found,missed,notes
+1,E0071_TR0001_OB0031_T01_M02,4,0,0,4,yolo_model:yolov8n.pt;confidence:0.030;imgsz:1920;classes:all;upscale_factor:2.00;clahe:True;sharpen:True;detections:0
+2,E0089_TR0005_OB2257_T01_M13,7,6,6,1,yolo_model:yolov8n.pt;confidence:0.030;imgsz:1920;classes:all;upscale_factor:2.00;clahe:True;sharpen:True;detections:6
+3,E0089_TR0006_OB0366_T01_M16,6,1,1,5,yolo_model:yolov8n.pt;confidence:0.030;imgsz:1920;classes:all;upscale_factor:2.00;clahe:True;sharpen:True;detections:1
+4,E0098_TR0000_OB0098_T01_M04,2,0,0,2,yolo_model:yolov8n.pt;confidence:0.030;imgsz:1920;classes:all;upscale_factor:2.00;clahe:True;sharpen:True;detections:0
+5,E0206_TR0001_OB0020_T01_M10,20,0,0,20,yolo_model:yolov8n.pt;confidence:0.030;imgsz:1920;classes:all;upscale_factor:2.00;clahe:True;sharpen:True;detections:0
+6,E0222_TR0000_OB0077_T01_M16,5/6,0,0,5,can be 5 with the bird flapping weirdly or 6 if they are next to each other | official_count_nonstandard:5/6 | yolo_model:yolov8n.pt;confidence:0.030;imgsz:1920;classes:all;upscale_factor:2.00;clahe:True;sharpen:True;detections:0
+7,E0294_TR0000_OB0030_T01_M10,1,0,0,1,yolo_model:yolov8n.pt;confidence:0.030;imgsz:1920;classes:all;upscale_factor:2.00;clahe:True;sharpen:True;detections:0
+8,E0297_TR0000_OB0036_T01_M16,1,0,0,1,yolo_model:yolov8n.pt;confidence:0.030;imgsz:1920;classes:all;upscale_factor:2.00;clahe:True;sharpen:True;detections:0
+9,E0411_TR0001_OB0477_T01_M02,2,0,0,2,yolo_model:yolov8n.pt;confidence:0.030;imgsz:1920;classes:all;upscale_factor:2.00;clahe:True;sharpen:True;detections:0
+10,E0411_TR0001_OB0486_T01_M02,2,0,0,2,yolo_model:yolov8n.pt;confidence:0.030;imgsz:1920;classes:all;upscale_factor:2.00;clahe:True;sharpen:True;detections:0
+11,E0418_TR0000_OB1504_T01_M02,2,0,0,2,yolo_model:yolov8n.pt;confidence:0.030;imgsz:1920;classes:all;upscale_factor:2.00;clahe:True;sharpen:True;detections:0
+12,E0418_TR0000_OB1594_T01_M04,4,1,1,3,yolo_model:yolov8n.pt;confidence:0.030;imgsz:1920;classes:all;upscale_factor:2.00;clahe:True;sharpen:True;detections:1
+13,E0418_TR0000_OB1797_T01_M04,9,0,0,9,yolo_model:yolov8n.pt;confidence:0.030;imgsz:1920;classes:all;upscale_factor:2.00;clahe:True;sharpen:True;detections:0
+14,E0453_TR0001_OB0301_T01_M02,15/16/17,0,0,15,will accept 15/16/17 as correct answers as it's hard to say | official_count_nonstandard:15/16/17 | yolo_model:yolov8n.pt;confidence:0.030;imgsz:1920;classes:all;upscale_factor:2.00;clahe:True;sharpen:True;detections:0
+15,E0453_TR0001_OB0564_T01_M02,23,0,0,23,yolo_model:yolov8n.pt;confidence:0.030;imgsz:1920;classes:all;upscale_factor:2.00;clahe:True;sharpen:True;detections:0
+16,E0454_TR0000_OB0010_T01_M02,2,0,0,2,yolo_model:yolov8n.pt;confidence:0.030;imgsz:1920;classes:all;upscale_factor:2.00;clahe:True;sharpen:True;detections:0
