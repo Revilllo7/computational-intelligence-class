@@ -41,7 +41,7 @@ def main() -> None:
 		json_path = output_dir / f"detection_conf_{confidence_tag(threshold)}.json"
 		write_json(json_path, payload)
 
-		image_out_name = f"{input_image.stem}_conf_{confidence_tag(threshold)}."
+		image_out_name = f"{input_image.stem}_conf_{confidence_tag(threshold)}.png"
 		save_annotated(image, detections, annotated_dir / image_out_name)
 
 		class_counts = Counter(det["class_name"] for det in detections)

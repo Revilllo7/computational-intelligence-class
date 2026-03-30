@@ -29,8 +29,8 @@ def _process_video(model: YOLO, input_video: Path, output_dir: Path, threshold: 
 		raise FileNotFoundError(f"Video not found or unreadable: {input_video}")
 
 	output_dir.mkdir(parents=True, exist_ok=True)
-	frames_dir = output_dir / "frames"
-	frames_dir.mkdir(parents=True, exist_ok=True)
+	annotated_dir = output_dir / "annotated"
+	annotated_dir.mkdir(parents=True, exist_ok=True)
 
 	fps = float(capture.get(cv2.CAP_PROP_FPS) or 0.0)
 	if fps <= 0:
@@ -51,7 +51,7 @@ def _process_video(model: YOLO, input_video: Path, output_dir: Path, threshold: 
 
 		frames_payload.append(build_frame_payload(frame_id, timestamp, detections))
 
-		frame_out = frames_dir / f"frame_{frame_id:06d}.jpg"
+		frame_out = annotated_dir / f"frame_{frame_id:06d}.png"
 		save_annotated(frame, detections, frame_out)
 
 	capture.release()

@@ -6,7 +6,4 @@ input/*.mp4
 input/*.png
 input/*.jpg
 input/*.json
-output/*.mp4
-output/*.png
-output/*.jpg
-output/*.json
+output/*
