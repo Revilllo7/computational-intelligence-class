@@ -3,3 +3,5 @@ output/*/*.mp4
 output/*/*.png
 output/*/*.jpg
 output/*/*.json
+
+yolov8n.pt
