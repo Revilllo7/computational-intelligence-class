@@ -7,7 +7,10 @@ YOLOv8 | 0/16 | 0% | Failed to detect any birds in the images. Detected "possibl
 
 ## Comparison images:
 
+> [!NOTE]  
 > Toilet and Car come from a fallback to broader classes when nothing is detected with flying classes in Yolo, like: plane, bird, kite, etc.
+
+<br><br>
 
 ![Comparison images](markdown/1.jpg)
 > OpenCV: 4/4 Correct <br>
@@ -67,6 +70,7 @@ YOLOv8 | 0/16 | 0% | Failed to detect any birds in the images. Detected "possibl
 
 > [!WARNING]  
 > I struggled to count these ones. There's a lot of shadow that is not background, so it has to be a bird, but is also not defined enough to be picked up by the detectors.
+<br>
 
 ![Comparison images](markdown/15.jpg)
 > OpenCV: 22/23 Correct - 2 False Positives. Red box means uncounted, though I marked it as correct. <br>
@@ -74,6 +78,7 @@ YOLOv8 | 0/16 | 0% | Failed to detect any birds in the images. Detected "possibl
 
 > [!NOTE]  
 > Red box means not accepted, but marked. That's due to the area. It's either too small or too large. In this case it's because it's right at the edge of the image and after erosion the blob becomes too small. This was meant as indicator for "pepper filter like" effects for manual checks, but in this case it fails it's job.
+<br>
 
 ![Comparison images](markdown/16.jpg)
 > OpenCV: 2/2 Correct <br>
