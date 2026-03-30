@@ -1,14 +1,26 @@
 from __future__ import annotations
 
 import argparse
-import csv
 import os
-import re
+import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from pathlib import Path
 
 import cv2
+
+LAB05_ROOT = Path(__file__).resolve().parents[1]
+if str(LAB05_ROOT) not in sys.path:
+	sys.path.insert(0, str(LAB05_ROOT))
+
+from common.comparison import (
+	ComparisonRow,
+	CountResultRow,
+	build_result_row,
+	read_comparison_rows,
+	score_rows,
+	write_output_csv,
+)
 
 from utils.blob_counter import BlobFilterConfig, count_blobs
 from utils.preprocessing import PreprocessConfig, preprocess_for_blobs
@@ -35,25 +47,6 @@ class HybridConfig:
 	secondary_blob_filter: BlobFilterConfig
 
 
-@dataclass(frozen=True)
-class ComparisonRow:
-	number: str
-	picture_name: str
-	official_count_raw: str
-	notes: str
-
-
-@dataclass(frozen=True)
-class ImageResult:
-	number: str
-	picture_name: str
-	official_count: str
-	algorithm_count: str
-	found: str
-	missed: str
-	notes: str
-
-
 def _project_root() -> Path:
 	return Path(__file__).resolve().parent
 
@@ -63,94 +56,14 @@ def _iter_image_paths(input_dir: Path) -> list[Path]:
 	return sorted(path for path in input_dir.glob("*.jpg") if path.is_file())
 
 
-def _read_comparison_rows(comparison_csv: Path) -> dict[str, ComparisonRow]:
-	rows: dict[str, ComparisonRow] = {}
-	with comparison_csv.open("r", encoding="utf-8", newline="") as handle:
-		reader = csv.DictReader(handle, skipinitialspace=True)
-		for row in reader:
-			picture_name = (row.get("picture_name") or "").strip()
-			if not picture_name:
-				continue
-
-			rows[picture_name] = ComparisonRow(
-				number=(row.get("number") or "").strip(),
-				picture_name=picture_name,
-				official_count_raw=(row.get("official_count") or "").strip(),
-				notes=(row.get("notes") or "").strip(),
-			)
-	return rows
-
-
-def _parse_official_count(raw_value: str) -> tuple[int | None, str | None]:
-	value = raw_value.strip()
-	if not value:
-		return None, None
-
-	if value.endswith("?") and value[:-1].isdigit():
-		return int(value[:-1]), f"official_count_uncertain:{value}"
-
-	if value.isdigit():
-		return int(value), None
-
-	match = re.search(r"\d+", value)
-	if match:
-		return int(match.group(0)), f"official_count_nonstandard:{value}"
-
-	return None, f"official_count_unparsed:{value}"
-
-
-def _merge_notes(*notes: str | None) -> str:
-	merged = [note.strip() for note in notes if note and note.strip()]
-	if not merged:
-		return ""
-	# Preserve order while deduplicating.
-	unique = list(dict.fromkeys(merged))
-	return " | ".join(unique)
-
-
-def _build_result_row(
-	image_name: str,
-	algorithm_count: int | None,
-	comparison: ComparisonRow | None,
-	extra_note: str | None,
-) -> ImageResult:
-	if comparison is None:
-		return ImageResult(
-			number="",
-			picture_name=Path(image_name).stem,
-			official_count="",
-			algorithm_count="" if algorithm_count is None else str(algorithm_count),
-			found="",
-			missed="",
-			notes=_merge_notes(extra_note, "missing_in_comparison_csv"),
-		)
-
-	official_numeric, parse_note = _parse_official_count(comparison.official_count_raw)
-	found = ""
-	missed = ""
-	if official_numeric is not None and algorithm_count is not None:
-		found = str(min(official_numeric, algorithm_count))
-		missed = str(max(official_numeric - algorithm_count, 0))
-
-	return ImageResult(
-		number=comparison.number,
-		picture_name=comparison.picture_name,
-		official_count=comparison.official_count_raw,
-		algorithm_count="" if algorithm_count is None else str(algorithm_count),
-		found=found,
-		missed=missed,
-		notes=_merge_notes(comparison.notes, parse_note, extra_note),
-	)
-
-
 def _count_single_image(
 	image_path: Path,
 	comparison_rows: dict[str, ComparisonRow],
 	config: RuntimeConfig,
-) -> ImageResult:
+) -> CountResultRow:
 	image_bgr = cv2.imread(str(image_path), cv2.IMREAD_COLOR)
 	if image_bgr is None:
-		return _build_result_row(
+		return build_result_row(
 			image_name=image_path.name,
 			algorithm_count=None,
 			comparison=comparison_rows.get(image_path.stem),
@@ -201,7 +114,7 @@ def _count_single_image(
 		f"mask:{mask_path.name};overlay:{overlay_path.name}"
 	)
 
-	return _build_result_row(
+	return build_result_row(
 		image_name=image_path.name,
 		algorithm_count=algorithm_count,
 		comparison=comparison_rows.get(image_path.stem),
@@ -209,53 +122,11 @@ def _count_single_image(
 	)
 
 
-def _write_output_csv(output_csv: Path, rows: list[ImageResult]) -> None:
-	output_csv.parent.mkdir(parents=True, exist_ok=True)
-	with output_csv.open("w", encoding="utf-8", newline="") as handle:
-		writer = csv.DictWriter(
-			handle,
-			fieldnames=[
-				"number",
-				"picture_name",
-				"official_count",
-				"algorithm_count",
-				"found",
-				"missed",
-				"notes",
-			],
-		)
-		writer.writeheader()
-		for row in rows:
-			writer.writerow(
-				{
-					"number": row.number,
-					"picture_name": row.picture_name,
-					"official_count": row.official_count,
-					"algorithm_count": row.algorithm_count,
-					"found": row.found,
-					"missed": row.missed,
-					"notes": row.notes,
-				}
-			)
-
-
-def _ambiguity_accepted(number: str, algorithm_count: str, official_count: str) -> bool:
-	if not algorithm_count.isdigit():
-		return False
-
-	algo = int(algorithm_count)
-	if number == "6":
-		return algo in {5, 6}
-	if number == "14":
-		return algo in {15, 16, 17}
-	return official_count.isdigit() and algo == int(official_count)
-
-
 def _build_arg_parser() -> argparse.ArgumentParser:
 	root = _project_root()
 	parser = argparse.ArgumentParser(description="Count birds in JPG images using OpenCV blobs.")
-	parser.add_argument("--input-dir", type=Path, default=root / "input")
-	parser.add_argument("--comparison-csv", type=Path, default=root / "comparison.csv")
+	parser.add_argument("--input-dir", type=Path, default=root.parent / "common" / "input")
+	parser.add_argument("--comparison-csv", type=Path, default=root.parent / "common" / "comparison.csv")
 	parser.add_argument("--output-csv", type=Path, default=root / "output" / "opencv_count.csv")
 	parser.add_argument("--output-dir", type=Path, default=root / "output")
 	parser.add_argument("--hybrid-switch-threshold", type=int, default=10)
@@ -318,8 +189,8 @@ def main() -> None:
 	if not image_paths:
 		raise FileNotFoundError(f"No JPG files found in {config.input_dir}")
 
-	comparison_rows = _read_comparison_rows(config.comparison_csv)
-	results: list[ImageResult] = []
+	comparison_rows = read_comparison_rows(config.comparison_csv)
+	results: list[CountResultRow] = []
 
 	with ThreadPoolExecutor(max_workers=config.max_workers) as executor:
 		future_to_path = {
@@ -331,7 +202,7 @@ def main() -> None:
 			try:
 				result = future.result()
 			except Exception as exc:  # pragma: no cover
-				result = _build_result_row(
+				result = build_result_row(
 					image_name=image_path.name,
 					algorithm_count=None,
 					comparison=comparison_rows.get(image_path.stem),
@@ -341,17 +212,9 @@ def main() -> None:
 
 	result_by_name = {row.picture_name: row for row in results}
 	ordered_results = [result_by_name[path.stem] for path in image_paths if path.stem in result_by_name]
-	_write_output_csv(config.output_csv, ordered_results)
+	write_output_csv(config.output_csv, ordered_results)
 
-	numeric_correct = 0
-	ambiguity_correct = 0
-	for result in ordered_results:
-		official_raw = result.official_count.strip().rstrip("?")
-		if official_raw.isdigit() and result.algorithm_count.isdigit() and int(official_raw) == int(result.algorithm_count):
-			numeric_correct += 1
-
-		if _ambiguity_accepted(result.number.strip(), result.algorithm_count.strip(), result.official_count.strip()):
-			ambiguity_correct += 1
+	numeric_correct, ambiguity_correct = score_rows(ordered_results)
 
 	print(f"Processed images: {len(ordered_results)}")
 	print(f"Correctly matched counts (numeric rows): {numeric_correct}")
