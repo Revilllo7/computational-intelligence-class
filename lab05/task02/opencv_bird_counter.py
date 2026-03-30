@@ -16,10 +16,12 @@ if str(LAB05_ROOT) not in sys.path:
 from common.comparison import (
 	ComparisonRow,
 	CountResultRow,
+	ambiguity_accepted,
 	build_result_row,
 	read_comparison_rows,
 	score_rows,
 	write_output_csv,
+	write_output_json,
 )
 
 from utils.blob_counter import BlobFilterConfig, count_blobs
@@ -128,6 +130,7 @@ def _build_arg_parser() -> argparse.ArgumentParser:
 	parser.add_argument("--input-dir", type=Path, default=root.parent / "common" / "input")
 	parser.add_argument("--comparison-csv", type=Path, default=root.parent / "common" / "comparison.csv")
 	parser.add_argument("--output-csv", type=Path, default=root / "output" / "opencv_count.csv")
+	parser.add_argument("--output-json", type=Path, default=root / "output" / "opencv_count.json")
 	parser.add_argument("--output-dir", type=Path, default=root / "output")
 	parser.add_argument("--hybrid-switch-threshold", type=int, default=10)
 	parser.add_argument("--max-workers", type=int, default=max(1, min(32, (os.cpu_count() or 1) * 2)))
@@ -213,6 +216,19 @@ def main() -> None:
 	result_by_name = {row.picture_name: row for row in results}
 	ordered_results = [result_by_name[path.stem] for path in image_paths if path.stem in result_by_name]
 	write_output_csv(config.output_csv, ordered_results)
+	write_output_json(args.output_json, ordered_results)
+
+	for row in ordered_results:
+		is_match = ambiguity_accepted(
+			row.number.strip(),
+			row.algorithm_count.strip(),
+			row.official_count.strip(),
+		)
+		bird_counter = row.algorithm_count if row.algorithm_count else "N/A"
+		print(
+			f"Image #{row.number or '?'} ({row.picture_name}): "
+			f"bird_counter={bird_counter}, matches_with_ambiguity={is_match}"
+		)
 
 	numeric_correct, ambiguity_correct = score_rows(ordered_results)
 
@@ -220,6 +236,7 @@ def main() -> None:
 	print(f"Correctly matched counts (numeric rows): {numeric_correct}")
 	print(f"Correctly matched counts (with ambiguity rules): {ambiguity_correct}")
 	print(f"CSV written to: {config.output_csv}")
+	print(f"JSON written to: {args.output_json}")
 	print(f"Review artifacts in: {config.output_dir}")
 
 

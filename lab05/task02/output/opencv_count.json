@@ -1,0 +1,98 @@
+[
+  {
+    "image_number": 1,
+    "image_name": "E0071_TR0001_OB0031_T01_M02",
+    "bird_counter": 4,
+    "matches_with_ambiguity": true
+  },
+  {
+    "image_number": 2,
+    "image_name": "E0089_TR0005_OB2257_T01_M13",
+    "bird_counter": 7,
+    "matches_with_ambiguity": true
+  },
+  {
+    "image_number": 3,
+    "image_name": "E0089_TR0006_OB0366_T01_M16",
+    "bird_counter": 6,
+    "matches_with_ambiguity": true
+  },
+  {
+    "image_number": 4,
+    "image_name": "E0098_TR0000_OB0098_T01_M04",
+    "bird_counter": 2,
+    "matches_with_ambiguity": true
+  },
+  {
+    "image_number": 5,
+    "image_name": "E0206_TR0001_OB0020_T01_M10",
+    "bird_counter": 22,
+    "matches_with_ambiguity": false
+  },
+  {
+    "image_number": 6,
+    "image_name": "E0222_TR0000_OB0077_T01_M16",
+    "bird_counter": 5,
+    "matches_with_ambiguity": true
+  },
+  {
+    "image_number": 7,
+    "image_name": "E0294_TR0000_OB0030_T01_M10",
+    "bird_counter": 1,
+    "matches_with_ambiguity": true
+  },
+  {
+    "image_number": 8,
+    "image_name": "E0297_TR0000_OB0036_T01_M16",
+    "bird_counter": 1,
+    "matches_with_ambiguity": true
+  },
+  {
+    "image_number": 9,
+    "image_name": "E0411_TR0001_OB0477_T01_M02",
+    "bird_counter": 2,
+    "matches_with_ambiguity": true
+  },
+  {
+    "image_number": 10,
+    "image_name": "E0411_TR0001_OB0486_T01_M02",
+    "bird_counter": 2,
+    "matches_with_ambiguity": true
+  },
+  {
+    "image_number": 11,
+    "image_name": "E0418_TR0000_OB1504_T01_M02",
+    "bird_counter": 2,
+    "matches_with_ambiguity": true
+  },
+  {
+    "image_number": 12,
+    "image_name": "E0418_TR0000_OB1594_T01_M04",
+    "bird_counter": 4,
+    "matches_with_ambiguity": true
+  },
+  {
+    "image_number": 13,
+    "image_name": "E0418_TR0000_OB1797_T01_M04",
+    "bird_counter": 9,
+    "matches_with_ambiguity": true
+  },
+  {
+    "image_number": 14,
+    "image_name": "E0453_TR0001_OB0301_T01_M02",
+    "bird_counter": 5,
+    "matches_with_ambiguity": false
+  },
+  {
+    "image_number": 15,
+    "image_name": "E0453_TR0001_OB0564_T01_M02",
+    "bird_counter": 23,
+    "matches_with_ambiguity": true
+  },
+  {
+    "image_number": 16,
+    "image_name": "E0454_TR0000_OB0010_T01_M02",
+    "bird_counter": 2,
+    "matches_with_ambiguity": true
+  }
+]

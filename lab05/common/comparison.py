@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import json
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -132,6 +133,29 @@ def write_output_csv(output_csv: Path, rows: list[CountResultRow]) -> None:
 					"notes": row.notes,
 				}
 			)
+
+
+def write_output_json(output_json: Path, rows: list[CountResultRow]) -> None:
+	output_json.parent.mkdir(parents=True, exist_ok=True)
+	payload: list[dict[str, object]] = []
+	for row in rows:
+		image_number: int | str = int(row.number) if row.number.strip().isdigit() else row.number
+		bird_counter: int | None = int(row.algorithm_count) if row.algorithm_count.strip().isdigit() else None
+		payload.append(
+			{
+				"image_number": image_number,
+				"image_name": row.picture_name,
+				"bird_counter": bird_counter,
+				"matches_with_ambiguity": ambiguity_accepted(
+					row.number.strip(),
+					row.algorithm_count.strip(),
+					row.official_count.strip(),
+				),
+			}
+		)
+
+	with output_json.open("w", encoding="utf-8") as handle:
+		json.dump(payload, handle, ensure_ascii=True, indent=2)
 
 
 def ambiguity_accepted(number: str, algorithm_count: str, official_count: str) -> bool:
