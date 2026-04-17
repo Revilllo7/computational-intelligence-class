@@ -1,0 +1,9 @@
+project_name: iris-classification-template
+experiments:
+  - configs/iris_mlp_zscore.yaml
+  - configs/iris_mlp_minmax.yaml
+  - configs/iris_linear_zscore.yaml
+  - configs/iris_linear_minmax.yaml
+comparison_csv: reports/comparisons/experiment_comparison.csv
+comparison_json: reports/comparisons/experiment_comparison.json
+comparison_plot_png: reports/comparisons/experiment_comparison.png

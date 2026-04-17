@@ -1,0 +1,48 @@
+project_name: iris-classification-template
+experiment_name: iris_mlp_minmax
+random_seed: 42
+
+paths:
+  raw_csv: data/raw/iris.csv
+  dataset_metadata: data/raw/dataset_metadata.json
+  processed_dir: data/processed/iris_mlp_minmax
+  preprocessor_artifact: models/iris_mlp_minmax/preprocessor.json
+  model_checkpoint: models/iris_mlp_minmax/model.pt
+  training_history_csv: reports/iris_mlp_minmax/training_history.csv
+  training_summary_json: reports/iris_mlp_minmax/training_summary.json
+  evaluation_json: reports/iris_mlp_minmax/evaluation.json
+  predictions_csv: reports/iris_mlp_minmax/test_predictions.csv
+  confusion_matrix_png: reports/iris_mlp_minmax/confusion_matrix.png
+  pairplot_png: reports/global/iris_pairplot.png
+  feature_hist_png: reports/global/feature_histograms.png
+  training_curves_png: reports/iris_mlp_minmax/training_curves.png
+
+data:
+  target_column: species
+  feature_columns:
+    - sepal_length_cm
+    - sepal_width_cm
+    - petal_length_cm
+    - petal_width_cm
+  class_names:
+    - setosa
+    - versicolor
+    - virginica
+  test_size: 0.2
+  validation_size: 0.2
+
+preprocessing:
+  strategy: minmax
+
+model:
+  name: mlp_classifier
+
+training:
+  hidden_dims: [16, 16]
+  learning_rate: 0.01
+  epochs: 150
+  batch_size: 16
+  weight_decay: 0.0001
+
+visualization:
+  figure_dpi: 160

@@ -1,0 +1,32 @@
+{
+  "experiments": [
+    {
+      "experiment_name": "iris_mlp_zscore",
+      "classifier": "mlp_classifier",
+      "preprocessing": "zscore",
+      "best_validation_accuracy": 0.9666666666666667,
+      "test_accuracy": 0.9666666666666667
+    },
+    {
+      "experiment_name": "iris_mlp_minmax",
+      "classifier": "mlp_classifier",
+      "preprocessing": "minmax",
+      "best_validation_accuracy": 0.9666666666666667,
+      "test_accuracy": 0.9333333333333333
+    },
+    {
+      "experiment_name": "iris_linear_zscore",
+      "classifier": "linear_classifier",
+      "preprocessing": "zscore",
+      "best_validation_accuracy": 0.9333333333333333,
+      "test_accuracy": 0.9333333333333333
+    },
+    {
+      "experiment_name": "iris_linear_minmax",
+      "classifier": "linear_classifier",
+      "preprocessing": "minmax",
+      "best_validation_accuracy": 0.9333333333333333,
+      "test_accuracy": 0.9333333333333333
+    }
+  ]
+}
