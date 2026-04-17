@@ -10,7 +10,7 @@ from src.visualization.plots import save_feature_histograms, save_pairplot
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Wygeneruj wykresy dla projektu Iris.")
+    parser = argparse.ArgumentParser(description="Wygeneruj wykresy dla wybranego zestawu danych.")
     parser.add_argument("--config", required=True, help="Sciezka do pliku YAML z konfiguracja.")
     parser.add_argument(
         "--kind",
@@ -30,11 +30,15 @@ def main() -> int:
         raw_frame = read_dataset(config.paths.raw_csv)
         save_feature_histograms(
             raw_frame,
+            config.data.feature_columns,
+            config.data.target_column,
             config.paths.feature_hist_png,
             dpi=config.visualization.figure_dpi,
         )
         save_pairplot(
             raw_frame,
+            config.data.feature_columns,
+            config.data.target_column,
             config.paths.pairplot_png,
             dpi=config.visualization.figure_dpi,
         )

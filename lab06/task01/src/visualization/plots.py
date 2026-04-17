@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -11,23 +12,53 @@ from sklearn.metrics import ConfusionMatrixDisplay
 from src.utils.io import ensure_parent
 
 
-def save_feature_histograms(frame: pd.DataFrame, output_path: Path, dpi: int) -> None:
+def save_feature_histograms(
+    frame: pd.DataFrame,
+    feature_columns: list[str],
+    target_column: str,
+    output_path: Path,
+    dpi: int,
+) -> None:
+    if not feature_columns:
+        raise ValueError("At least one feature column is required to plot histograms.")
+    if target_column not in frame.columns:
+        raise ValueError(f"Target column '{target_column}' is missing in the provided frame.")
+
     ensure_parent(output_path)
-    fig, axes = plt.subplots(2, 2, figsize=(10, 8), dpi=dpi)
-    for axis, column in zip(axes.flatten(), frame.columns[:-1], strict=True):
-        sns.histplot(data=frame, x=column, hue="species", kde=True, ax=axis)
+    columns_per_row = 2
+    row_count = math.ceil(len(feature_columns) / columns_per_row)
+    fig, axes = plt.subplots(row_count, columns_per_row, figsize=(10, 4 * row_count), dpi=dpi)
+    axes_flat = axes.flatten() if hasattr(axes, "flatten") else [axes]
+
+    for axis, column in zip(axes_flat, feature_columns, strict=False):
+        sns.histplot(data=frame, x=column, hue=target_column, kde=True, ax=axis)
+
+    for axis in axes_flat[len(feature_columns) :]:
+        axis.set_visible(False)
+
     fig.tight_layout()
     fig.savefig(output_path)
     plt.close(fig)
 
 
-def save_pairplot(frame: pd.DataFrame, output_path: Path, dpi: int) -> None:
+def save_pairplot(
+    frame: pd.DataFrame,
+    feature_columns: list[str],
+    target_column: str,
+    output_path: Path,
+    dpi: int,
+) -> None:
+    if not feature_columns:
+        raise ValueError("At least one feature column is required to plot a pairplot.")
+    if target_column not in frame.columns:
+        raise ValueError(f"Target column '{target_column}' is missing in the provided frame.")
+
     ensure_parent(output_path)
     axes = scatter_matrix(
-        frame[frame.columns],
+        frame[feature_columns],
         figsize=(10, 10),
         diagonal="hist",
-        c=frame["species"].astype("category").cat.codes,
+        c=frame[target_column].astype(str).astype("category").cat.codes,
     )
     for row in axes:
         for axis in row:

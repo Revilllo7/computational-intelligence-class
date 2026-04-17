@@ -112,7 +112,7 @@ Added files:
 
 <br>
 
-# G
+## G
 
 Added file: [new_iris_mlp_zscore.yaml](./configs/new_iris_mlp_zscore.yaml)
 
@@ -220,7 +220,7 @@ iris_shallow_zscore,shallow_mlp_classifier,zscore,0.9333333333333333,0.9,0.89974
 
 <br>
 
-### L
+## L
 
 New command: `make report-summary` to generate a summary of the top 10 experiments based on test accuracy.
 
@@ -230,6 +230,37 @@ make report-summary
 
 
 <br>
+
+## M
+
+Changes made to work with the `Diagnosis.csv` dataset:
+
+### New files:
+1. configs
+- [diagnosis_mlp_zscore.yaml](./configs/diagnosis_mlp_zscore.yaml)
+- [diagnosis_mlp_minmax.yaml](./configs/diagnosis_mlp_minmax.yaml)
+- [diagnosis_linear_zscore.yaml](./configs/diagnosis_linear_zscore.yaml)
+- [diagnosis_linear_minmax.yaml](./configs/diagnosis_linear_minmax.yaml)
+- [diagnosis_shallow_zscore.yaml](./configs/diagnosis_shallow_zscore.yaml)
+- [compare_experiments_diagnosis.yaml](./configs/compare_experiments_diagnosis.yaml)
+2. Makefile commands to run the new configs and comparison.
+3. Changing `predicted species` to `predicted ...`
+4. Change to generic fetch for columns
+5. A lot of changes to support different amount of columns and different target column name.
+6. Tests for the new dataset.
+
+### Changed files:
+1. [Makefile](./Makefile)
+2. [src/cli/fetch_data.py](./src/cli/fetch_data.py)
+3. [src/cli/predict.py](./src/cli/predict.py)
+4. [src/cli/report_summary.py](./src/cli/report_summary.py)
+5. [src/data/visualize.py](./src/data/visualize.py)
+6. [src/data/dataset.py](./src/data/dataset.py)
+7. [src/training/trainer.py](./src/training/trainer.py)
+8. [src/visualization/plots.py](./src/visualization/plots.py)
+9. [src/tests/test_config.py](./src/tests/test_config.py)
+10. [src/tests/test_trainer.py](./src/tests/test_trainer.py)
+
 
 ---
 

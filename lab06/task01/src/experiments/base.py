@@ -95,6 +95,7 @@ class BaseExperiment(ABC):
                 validation_frame=validation_frame,
                 feature_columns=self.config.data.feature_columns,
                 class_names=self.config.data.class_names,
+                target_column=self.config.data.target_column,
             ),
             learning_rate=self.config.training.learning_rate,
             epochs=self.config.training.epochs,
@@ -137,7 +138,7 @@ class BaseExperiment(ABC):
         macro_f1 = float(report_dict["macro avg"]["f1-score"])
         weighted_f1 = float(report_dict["weighted avg"]["f1-score"])
         predictions = test_frame.copy()
-        predictions["predicted_species"] = y_pred
+        predictions[f"predicted_{self.config.data.target_column}"] = y_pred
         predictions["confidence"] = [max(row) for row in probabilities]
         predictions.to_csv(self.config.paths.predictions_csv, index=False)
 

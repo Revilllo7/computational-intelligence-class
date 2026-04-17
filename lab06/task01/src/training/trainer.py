@@ -25,6 +25,7 @@ class TrainingBundle:
     validation_frame: pd.DataFrame
     feature_columns: list[str]
     class_names: list[str]
+    target_column: str
 
 
 @dataclass(frozen=True)
@@ -38,12 +39,20 @@ def dataframe_to_loader(
     frame: pd.DataFrame,
     feature_columns: list[str],
     class_names: list[str],
+    target_column: str,
     batch_size: int,
     shuffle: bool,
 ) -> DataLoader:
-    mapping = {name: index for index, name in enumerate(class_names)}
+    mapping = {str(name): index for index, name in enumerate(class_names)}
     features = torch.tensor(frame[feature_columns].to_numpy(dtype=np.float32))
-    labels = torch.tensor(frame["species"].map(mapping).to_numpy(dtype=np.int64))
+    encoded_labels = frame[target_column].astype(str).map(mapping)
+    if encoded_labels.isna().any():
+        unknown_labels = sorted(set(frame[target_column].astype(str)) - set(mapping))
+        raise ValueError(
+            "Unknown class labels found in column "
+            f"'{target_column}': {unknown_labels}. Expected one of {sorted(mapping)}"
+        )
+    labels = torch.tensor(encoded_labels.to_numpy(dtype=np.int64))
     dataset = TensorDataset(features, labels)
     return DataLoader(dataset, batch_size=batch_size, shuffle=shuffle)
 
@@ -61,6 +70,7 @@ def train_model(
         bundle.train_frame,
         bundle.feature_columns,
         bundle.class_names,
+        bundle.target_column,
         batch_size=batch_size,
         shuffle=True,
     )
@@ -68,6 +78,7 @@ def train_model(
         bundle.validation_frame,
         bundle.feature_columns,
         bundle.class_names,
+        bundle.target_column,
         batch_size=batch_size,
         shuffle=False,
     )

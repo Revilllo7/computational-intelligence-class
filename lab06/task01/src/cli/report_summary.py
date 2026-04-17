@@ -66,7 +66,12 @@ def main() -> int:
 
     print(results.head(args.top).to_string(index=False))
 
-    summary_csv = compare_config.comparison_csv.with_name("experiment_summary.csv")
+    if compare_config.comparison_csv.stem == "experiment_comparison":
+        summary_name = "experiment_summary.csv"
+    else:
+        summary_name = f"{compare_config.comparison_csv.stem}_summary.csv"
+
+    summary_csv = compare_config.comparison_csv.with_name(summary_name)
     ensure_parent(summary_csv)
     results.to_csv(summary_csv, index=False)
     logger.info("Zapisano podsumowanie eksperymentow do %s", summary_csv)

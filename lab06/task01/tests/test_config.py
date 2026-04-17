@@ -2,6 +2,7 @@ from pathlib import Path
 
 import pytest
 from pydantic import ValidationError
+
 from src.utils.config import ProjectConfig
 
 
@@ -11,6 +12,15 @@ def test_project_config_loads_yaml() -> None:
     assert config.experiment_name == "iris_mlp_zscore"
     assert config.paths.raw_csv == Path("data/raw/iris.csv")
     assert len(config.data.feature_columns) == 4
+
+
+def test_project_config_loads_diagnosis_yaml() -> None:
+    config = ProjectConfig.from_yaml(Path("configs/diagnosis_mlp_zscore.yaml"))
+    assert config.experiment_name == "diagnosis_mlp_zscore"
+    assert config.paths.raw_csv == Path("data/raw/diagnosis.csv")
+    assert config.data.target_column == "diagnosis"
+    assert config.data.feature_columns == ["param1", "param2", "param3"]
+    assert config.data.class_names == ["0", "1"]
 
 
 def test_project_config_rejects_invalid_preprocessing_strategy() -> None:

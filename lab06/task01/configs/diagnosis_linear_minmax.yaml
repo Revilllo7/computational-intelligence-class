@@ -1,0 +1,46 @@
+project_name: iris-classification-template
+experiment_name: diagnosis_linear_minmax
+random_seed: 42
+
+paths:
+  raw_csv: data/raw/diagnosis.csv
+  dataset_metadata: data/raw/dataset_metadata_diagnosis.json
+  processed_dir: data/processed/diagnosis_linear_minmax
+  preprocessor_artifact: models/diagnosis_linear_minmax/preprocessor.json
+  model_checkpoint: models/diagnosis_linear_minmax/model.pt
+  training_history_csv: reports/diagnosis_linear_minmax/training_history.csv
+  training_summary_json: reports/diagnosis_linear_minmax/training_summary.json
+  evaluation_json: reports/diagnosis_linear_minmax/evaluation.json
+  predictions_csv: reports/diagnosis_linear_minmax/test_predictions.csv
+  confusion_matrix_png: reports/diagnosis_linear_minmax/confusion_matrix.png
+  pairplot_png: reports/global/diagnosis_pairplot.png
+  feature_hist_png: reports/global/diagnosis_feature_histograms.png
+  training_curves_png: reports/diagnosis_linear_minmax/training_curves.png
+
+data:
+  target_column: diagnosis
+  feature_columns:
+    - param1
+    - param2
+    - param3
+  class_names:
+    - "0"
+    - "1"
+  test_size: 0.2
+  validation_size: 0.2
+
+preprocessing:
+  strategy: minmax
+
+model:
+  name: linear_classifier
+
+training:
+  hidden_dims: []
+  learning_rate: 0.05
+  epochs: 120
+  batch_size: 16
+  weight_decay: 0.0001
+
+visualization:
+  figure_dpi: 160

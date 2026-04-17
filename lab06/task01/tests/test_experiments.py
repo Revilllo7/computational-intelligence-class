@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pytest
+
 from src.experiments import ExperimentFactory
 from src.utils.config import ProjectConfig
 

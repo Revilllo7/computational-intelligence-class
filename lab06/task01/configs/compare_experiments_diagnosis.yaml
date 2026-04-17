@@ -1,0 +1,10 @@
+project_name: iris-classification-template
+experiments:
+  - configs/diagnosis_mlp_zscore.yaml
+  - configs/diagnosis_mlp_minmax.yaml
+  - configs/diagnosis_linear_zscore.yaml
+  - configs/diagnosis_linear_minmax.yaml
+  - configs/diagnosis_shallow_zscore.yaml
+comparison_csv: reports/comparisons/diagnosis_experiment_comparison.csv
+comparison_json: reports/comparisons/diagnosis_experiment_comparison.json
+comparison_plot_png: reports/comparisons/diagnosis_experiment_comparison.png

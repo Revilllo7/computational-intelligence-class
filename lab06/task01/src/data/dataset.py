@@ -39,5 +39,25 @@ def build_iris_dataframe() -> DatasetArtifacts:
     return DatasetArtifacts(frame=frame, metadata=metadata)
 
 
+def build_csv_metadata(
+    frame: pd.DataFrame,
+    source: str,
+    target_column: str,
+    feature_columns: list[str],
+) -> dict[str, object]:
+    if target_column not in frame.columns:
+        raise ValueError(f"Target column '{target_column}' does not exist in the provided dataset.")
+
+    return {
+        "source": source,
+        "rows": int(frame.shape[0]),
+        "columns": list(frame.columns),
+        "target_column": target_column,
+        "target_names": sorted(frame[target_column].astype(str).unique().tolist()),
+        "feature_names": feature_columns,
+        "description": "Dataset loaded from CSV file.",
+    }
+
+
 def read_dataset(path: Path) -> pd.DataFrame:
     return pd.read_csv(path)

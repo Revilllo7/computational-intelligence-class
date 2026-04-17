@@ -1,4 +1,5 @@
 import pandas as pd
+
 from src.data.preprocessing import (
     apply_minmax_scaler,
     apply_robust_scaler,
