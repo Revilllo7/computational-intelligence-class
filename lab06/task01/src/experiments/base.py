@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, cast
 
 import pandas as pd
 from sklearn.metrics import accuracy_score, classification_report
@@ -133,6 +133,9 @@ class BaseExperiment(ABC):
         )
         accuracy = float(accuracy_score(y_true, y_pred))
         report = classification_report(y_true, y_pred, output_dict=True)
+        report_dict = cast(dict[str, Any], report)
+        macro_f1 = float(report_dict["macro avg"]["f1-score"])
+        weighted_f1 = float(report_dict["weighted avg"]["f1-score"])
         predictions = test_frame.copy()
         predictions["predicted_species"] = y_pred
         predictions["confidence"] = [max(row) for row in probabilities]
@@ -152,7 +155,9 @@ class BaseExperiment(ABC):
                 "classifier": self.config.model.name,
                 "preprocessing": self.config.preprocessing.strategy,
                 "accuracy": accuracy,
-                "classification_report": report,
+                "macro_f1": macro_f1,
+                "weighted_f1": weighted_f1,
+                "classification_report": report_dict,
             },
         )
         self.logger.info(
@@ -179,11 +184,17 @@ class BaseExperiment(ABC):
                 normalized.append(
                     (raw_values[column] - parameters[column]["mean"]) / parameters[column]["std"]
                 )
-            else:
+            elif strategy == "minmax":
                 normalized.append(
                     (raw_values[column] - parameters[column]["min"])
                     / (parameters[column]["max"] - parameters[column]["min"])
                 )
+            elif strategy == "robust":
+                normalized.append(
+                    (raw_values[column] - parameters[column]["median"]) / parameters[column]["iqr"]
+                )
+            else:
+                raise ValueError(f"Unsupported preprocessing strategy: {strategy}")
 
         frame = pd.DataFrame([raw_values])
         for index, column in enumerate(self.config.data.feature_columns):

@@ -1,9 +1,10 @@
 import pandas as pd
-
 from src.data.preprocessing import (
     apply_minmax_scaler,
+    apply_robust_scaler,
     apply_standardizer,
     fit_minmax_scaler,
+    fit_robust_scaler,
     fit_standardizer,
     split_dataset,
 )
@@ -150,3 +151,25 @@ def test_minmax_scaler_maps_values_to_zero_one_range() -> None:
     transformed = apply_minmax_scaler(frame, columns, stats)
     assert float(transformed["sepal_length_cm"].min()) == 0.0
     assert float(transformed["sepal_length_cm"].max()) == 1.0
+
+
+def test_robust_scaler_centers_median_around_zero() -> None:
+    frame = pd.DataFrame(
+        {
+            "sepal_length_cm": [1.0, 2.0, 100.0],
+            "sepal_width_cm": [2.0, 3.0, 200.0],
+            "petal_length_cm": [3.0, 4.0, 300.0],
+            "petal_width_cm": [4.0, 5.0, 400.0],
+            "species": ["setosa", "versicolor", "virginica"],
+        }
+    )
+    columns = [
+        "sepal_length_cm",
+        "sepal_width_cm",
+        "petal_length_cm",
+        "petal_width_cm",
+    ]
+    stats = fit_robust_scaler(frame, columns)
+    transformed = apply_robust_scaler(frame, columns, stats)
+    assert abs(float(transformed["sepal_length_cm"].median())) < 1e-8
+    assert float(stats["sepal_length_cm"]["iqr"]) > 0.0

@@ -2,18 +2,25 @@ from __future__ import annotations
 
 import argparse
 
-import matplotlib.pyplot as plt
 import pandas as pd
 
 from src.utils.config import ComparisonConfig, ProjectConfig
-from src.utils.io import ensure_parent, read_json, write_json
+from src.utils.io import ensure_parent, read_json
 from src.utils.logger import get_logger
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Porownaj wyniki wielu eksperymentow.")
+    parser = argparse.ArgumentParser(description="Pokaz podsumowanie wynikow eksperymentow.")
     parser.add_argument(
-        "--config", required=True, help="Sciezka do pliku YAML z konfiguracja porownania."
+        "--config",
+        required=True,
+        help="Sciezka do pliku YAML z konfiguracja porownania.",
+    )
+    parser.add_argument(
+        "--top",
+        type=int,
+        default=5,
+        help="Liczba najlepszych eksperymentow do wyswietlenia.",
     )
     return parser.parse_args()
 
@@ -21,7 +28,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     compare_config = ComparisonConfig.from_yaml(args.config)
-    logger = get_logger("compare_experiments")
+    logger = get_logger("report_summary")
 
     rows: list[dict[str, str | float]] = []
     for experiment_config_path in compare_config.experiments:
@@ -56,40 +63,13 @@ def main() -> int:
         by=["test_accuracy", "macro_f1", "best_validation_accuracy"],
         ascending=False,
     )
-    ensure_parent(compare_config.comparison_csv)
-    results.to_csv(compare_config.comparison_csv, index=False)
-    write_json(
-        compare_config.comparison_json,
-        {"experiments": results.to_dict(orient="records")},
-    )
 
-    ensure_parent(compare_config.comparison_plot_png)
-    fig, axis = plt.subplots(figsize=(10, 5), dpi=160)
-    x_positions = list(range(len(results)))
-    bar_width = 0.4
-    axis.bar(
-        [position - bar_width / 2 for position in x_positions],
-        results["test_accuracy"],
-        width=bar_width,
-        label="test_accuracy",
-    )
-    axis.bar(
-        [position + bar_width / 2 for position in x_positions],
-        results["macro_f1"],
-        width=bar_width,
-        label="macro_f1",
-    )
-    axis.set_xticks(x_positions)
-    axis.set_xticklabels(results["experiment_name"], rotation=20)
-    axis.set_ylabel("Score")
-    axis.set_ylim(0.0, 1.0)
-    axis.legend()
-    axis.set_title("Porownanie eksperymentow")
-    fig.tight_layout()
-    fig.savefig(compare_config.comparison_plot_png)
-    plt.close(fig)
+    print(results.head(args.top).to_string(index=False))
 
-    logger.info("Zapisano porownanie eksperymentow do %s", compare_config.comparison_csv)
+    summary_csv = compare_config.comparison_csv.with_name("experiment_summary.csv")
+    ensure_parent(summary_csv)
+    results.to_csv(summary_csv, index=False)
+    logger.info("Zapisano podsumowanie eksperymentow do %s", summary_csv)
     return 0
 
 

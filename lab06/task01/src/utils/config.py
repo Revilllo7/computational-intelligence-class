@@ -44,11 +44,11 @@ class VisualizationConfig(BaseModel):
 
 
 class PreprocessingConfig(BaseModel):
-    strategy: Literal["zscore", "minmax"]
+    strategy: Literal["zscore", "minmax", "robust"]
 
 
 class ModelConfig(BaseModel):
-    name: Literal["mlp_classifier", "linear_classifier"]
+    name: Literal["mlp_classifier", "linear_classifier", "shallow_mlp_classifier"]
 
 
 class ProjectConfig(BaseModel):

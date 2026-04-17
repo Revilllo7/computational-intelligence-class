@@ -64,6 +64,19 @@ def fit_minmax_scaler(frame: pd.DataFrame, feature_columns: list[str]) -> Prepro
     return stats
 
 
+def fit_robust_scaler(frame: pd.DataFrame, feature_columns: list[str]) -> PreprocessorStats:
+    stats: PreprocessorStats = {}
+    for column in feature_columns:
+        q1 = float(frame[column].quantile(0.25))
+        q3 = float(frame[column].quantile(0.75))
+        iqr = q3 - q1
+        if iqr == 0.0:
+            iqr = 1.0
+        median = float(frame[column].median())
+        stats[column] = {"median": median, "iqr": iqr}
+    return stats
+
+
 def apply_standardizer(
     frame: pd.DataFrame,
     feature_columns: list[str],
@@ -87,22 +100,37 @@ def apply_minmax_scaler(
     return transformed
 
 
+def apply_robust_scaler(
+    frame: pd.DataFrame,
+    feature_columns: list[str],
+    stats: PreprocessorStats,
+) -> pd.DataFrame:
+    transformed = frame.copy()
+    for column in feature_columns:
+        transformed[column] = (transformed[column] - stats[column]["median"]) / stats[column]["iqr"]
+    return transformed
+
+
 def fit_preprocessor(
     frame: pd.DataFrame,
     feature_columns: list[str],
-    strategy: Literal["zscore", "minmax"],
+    strategy: Literal["zscore", "minmax", "robust"],
 ) -> PreprocessorStats:
     if strategy == "zscore":
         return fit_standardizer(frame, feature_columns)
-    return fit_minmax_scaler(frame, feature_columns)
+    if strategy == "minmax":
+        return fit_minmax_scaler(frame, feature_columns)
+    return fit_robust_scaler(frame, feature_columns)
 
 
 def apply_preprocessor(
     frame: pd.DataFrame,
     feature_columns: list[str],
     stats: PreprocessorStats,
-    strategy: Literal["zscore", "minmax"],
+    strategy: Literal["zscore", "minmax", "robust"],
 ) -> pd.DataFrame:
     if strategy == "zscore":
         return apply_standardizer(frame, feature_columns, stats)
-    return apply_minmax_scaler(frame, feature_columns, stats)
+    if strategy == "minmax":
+        return apply_minmax_scaler(frame, feature_columns, stats)
+    return apply_robust_scaler(frame, feature_columns, stats)
