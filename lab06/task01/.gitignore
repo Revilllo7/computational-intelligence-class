@@ -1,0 +1,32 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.pyright/
+*.pyc
+*.pyo
+*.pyd
+.coverage
+htmlcov/
+
+# Generated data and ML artifacts
+data/raw/*
+data/interim/*
+data/processed/*
+models/*
+outputs/*
+reports/*
+
+# Keep the directory skeleton visible in the template
+!data/.gitkeep
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+!models/.gitkeep
+!reports/.gitkeep
+!reports/comparisons/
+!reports/comparisons/.gitkeep
+!reports/global/
+!reports/global/.gitkeep
+!reports/figures/
+!reports/figures/.gitkeep
