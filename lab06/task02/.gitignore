@@ -1,0 +1,28 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+*.pyc
+*.pyo
+*.pyd
+
+# Environment
+.env
+
+# Local experiment outputs
+data/interim/**
+data/processed/**
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+
+models/**
+!models/.gitkeep
+
+reports/**
+!reports/.gitkeep
+!reports/comparisons/.gitkeep
+!reports/figures/.gitkeep
+!reports/global/.gitkeep

@@ -1,0 +1,15 @@
+project_name: cats-dogs-cnn-template
+experiments:
+  - configs/cats_dogs_exp_baseline_adam_relu.yaml
+  - configs/cats_dogs_exp_optimizer_sgd.yaml
+  - configs/cats_dogs_exp_activation_tanh.yaml
+  - configs/cats_dogs_exp_layers_2.yaml
+  - configs/cats_dogs_exp_filters_high.yaml
+  - configs/cats_dogs_exp_dropout_off.yaml
+  - configs/cats_dogs_exp_augment_strong.yaml
+comparison_csv: reports/comparisons/experiment_matrix.csv
+comparison_json: reports/comparisons/experiment_matrix.json
+accuracy_plot_png: reports/comparisons/accuracy_comparison.png
+learning_curves_grid_png: reports/comparisons/learning_curves_grid.png
+confusion_matrices_grid_png: reports/comparisons/confusion_matrices_grid.png
+figure_dpi: 160

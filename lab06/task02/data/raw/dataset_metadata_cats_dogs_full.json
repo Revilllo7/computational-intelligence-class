@@ -1,0 +1,19 @@
+{
+  "source_zip": "data/raw/dogs-and-cats.zip",
+  "extracted_dir": "data/interim/dogs-and-cats",
+  "rows": 25000,
+  "class_names": [
+    "cat",
+    "dog"
+  ],
+  "class_distribution": {
+    "cat": 12500,
+    "dog": 12500
+  },
+  "max_samples": null,
+  "split_sizes": {
+    "train": 20000,
+    "validation": 2500,
+    "test": 2500
+  }
+}
