@@ -41,6 +41,20 @@ compare:
 
 matrix: run-matrix compare
 
+run-transfer-matrix:
+	uv run -m src.cli.run_experiment --config configs/cats_dogs_exp_baseline_adam_relu.yaml
+	uv run -m src.cli.run_experiment --config configs/cats_dogs_transfer_resnet18_pretrained.yaml
+	uv run -m src.cli.run_experiment --config configs/cats_dogs_transfer_resnet18_scratch.yaml
+	uv run -m src.cli.run_experiment --config configs/cats_dogs_transfer_mobilenet_v3_small_pretrained.yaml
+	uv run -m src.cli.run_experiment --config configs/cats_dogs_transfer_mobilenet_v3_small_scratch.yaml
+	uv run -m src.cli.run_experiment --config configs/cats_dogs_transfer_efficientnet_b0_pretrained.yaml
+	uv run -m src.cli.run_experiment --config configs/cats_dogs_transfer_efficientnet_b0_scratch.yaml
+
+compare-transfer:
+	uv run -m src.cli.compare_experiments --config configs/compare_transfer_vs_scratch.yaml
+
+transfer-matrix: run-transfer-matrix compare-transfer
+
 test:
 	uv run pytest
 

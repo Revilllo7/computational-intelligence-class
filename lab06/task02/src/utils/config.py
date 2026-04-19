@@ -58,11 +58,23 @@ class PreprocessingConfig(BaseModel):
 
 
 class ModelConfig(BaseModel):
-    name: Literal["cnn_classifier"]
+    name: Literal["cnn_classifier", "transfer_classifier"]
     activation: Literal["relu", "leaky_relu", "elu", "tanh"] = "relu"
-    conv_channels: list[int] = Field(min_length=1)
-    hidden_dim: int = Field(gt=0)
+    conv_channels: list[int] = Field(default_factory=lambda: [32, 64, 128], min_length=1)
+    hidden_dim: int = Field(default=128, gt=0)
     dropout: float = Field(default=0.3, ge=0.0, lt=1.0)
+    backbone: Literal["resnet18", "mobilenet_v3_small", "efficientnet_b0"] | None = None
+    pretrained: bool = False
+    freeze_backbone: bool = False
+    head_dropout: float = Field(default=0.2, ge=0.0, lt=1.0)
+
+    @model_validator(mode="after")
+    def _validate_model_fields(self) -> ModelConfig:
+        if self.name == "transfer_classifier" and self.backbone is None:
+            raise ValueError("backbone must be provided when model.name is 'transfer_classifier'")
+        if self.name == "cnn_classifier" and self.backbone is not None:
+            raise ValueError("backbone is only valid for model.name='transfer_classifier'")
+        return self
 
 
 class TrainingConfig(BaseModel):

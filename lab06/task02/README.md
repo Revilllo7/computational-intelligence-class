@@ -23,6 +23,30 @@ make run-quick
 make run-full
 ```
 
+## Transfer Learning Vs Scratch
+
+This project also supports PyTorch transfer-learning backbones:
+- ResNet18
+- MobileNetV3-Small
+- EfficientNet-B0
+
+For each backbone, there are two variants:
+- pretrained transfer learning (frozen backbone + trained classifier head)
+- scratch training (random init, full model trainable)
+
+Run the full transfer-vs-scratch matrix and comparison:
+
+```bash
+make transfer-matrix
+```
+
+Or run in two steps:
+
+```bash
+make run-transfer-matrix
+make compare-transfer
+```
+
 ## Dataset
 
 Default expected zip path:

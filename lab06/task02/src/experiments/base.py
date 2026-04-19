@@ -153,30 +153,53 @@ class BaseExperiment(ABC):
         result.history.to_csv(self.config.paths.training_history_csv, index=False)
         train_manifest = pd.read_csv(self.config.paths.train_manifest_csv)
         validation_manifest = pd.read_csv(self.config.paths.validation_manifest_csv)
+
+        summary_payload: dict[str, Any] = {
+            "experiment_name": self.config.experiment_name,
+            "classifier": self.config.model.name,
+            "model_name": self.config.model.name,
+            "backbone": self.config.model.backbone,
+            "pretrained": self.config.model.pretrained,
+            "freeze_backbone": self.config.model.freeze_backbone,
+            "head_dropout": self.config.model.head_dropout,
+            "best_validation_accuracy": result.best_validation_accuracy,
+            "epochs": self.config.training.epochs,
+            "batch_size": self.config.training.batch_size,
+            "learning_rate": self.config.training.learning_rate,
+            "weight_decay": self.config.training.weight_decay,
+            "optimizer": self.config.training.optimizer,
+            "sgd_momentum": self.config.training.sgd_momentum,
+            "augment_train": self.config.preprocessing.augment_train,
+            "random_horizontal_flip_p": self.config.preprocessing.random_horizontal_flip_p,
+            "random_rotation_degrees": self.config.preprocessing.random_rotation_degrees,
+            "color_jitter_brightness": self.config.preprocessing.color_jitter_brightness,
+            "color_jitter_contrast": self.config.preprocessing.color_jitter_contrast,
+            "train_samples": len(train_manifest),
+            "validation_samples": len(validation_manifest),
+        }
+
+        if self.config.model.name == "cnn_classifier":
+            summary_payload.update(
+                {
+                    "activation": self.config.model.activation,
+                    "conv_channels": self.config.model.conv_channels,
+                    "num_conv_layers": len(self.config.model.conv_channels),
+                    "dropout": self.config.model.dropout,
+                }
+            )
+        else:
+            summary_payload.update(
+                {
+                    "activation": None,
+                    "conv_channels": None,
+                    "num_conv_layers": None,
+                    "dropout": self.config.model.head_dropout,
+                }
+            )
+
         write_json(
             self.config.paths.training_summary_json,
-            {
-                "experiment_name": self.config.experiment_name,
-                "classifier": self.config.model.name,
-                "best_validation_accuracy": result.best_validation_accuracy,
-                "epochs": self.config.training.epochs,
-                "batch_size": self.config.training.batch_size,
-                "learning_rate": self.config.training.learning_rate,
-                "weight_decay": self.config.training.weight_decay,
-                "optimizer": self.config.training.optimizer,
-                "sgd_momentum": self.config.training.sgd_momentum,
-                "activation": self.config.model.activation,
-                "conv_channels": self.config.model.conv_channels,
-                "num_conv_layers": len(self.config.model.conv_channels),
-                "dropout": self.config.model.dropout,
-                "augment_train": self.config.preprocessing.augment_train,
-                "random_horizontal_flip_p": self.config.preprocessing.random_horizontal_flip_p,
-                "random_rotation_degrees": self.config.preprocessing.random_rotation_degrees,
-                "color_jitter_brightness": self.config.preprocessing.color_jitter_brightness,
-                "color_jitter_contrast": self.config.preprocessing.color_jitter_contrast,
-                "train_samples": len(train_manifest),
-                "validation_samples": len(validation_manifest),
-            },
+            summary_payload,
         )
         self.logger.info(
             "Training completed for %s with best validation accuracy %.4f",

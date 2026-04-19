@@ -43,15 +43,58 @@ def main() -> int:
         macro_f1 = float(evaluation.get("macro_f1", report["macro avg"]["f1-score"]))
         weighted_f1 = float(evaluation.get("weighted_f1", report["weighted avg"]["f1-score"]))
 
+        model_name = str(training_summary.get("model_name", config.model.name))
+        backbone = cast(str | None, training_summary.get("backbone", config.model.backbone))
+        pretrained = bool(training_summary.get("pretrained", config.model.pretrained))
+        freeze_backbone = bool(
+            training_summary.get("freeze_backbone", config.model.freeze_backbone)
+        )
+
+        activation_raw = training_summary.get(
+            "activation",
+            config.model.activation if model_name == "cnn_classifier" else None,
+        )
+        activation = str(activation_raw) if activation_raw is not None else ""
+
+        conv_channels_raw = training_summary.get(
+            "conv_channels",
+            config.model.conv_channels if model_name == "cnn_classifier" else None,
+        )
+        conv_channels = (
+            "-".join(str(channel) for channel in conv_channels_raw)
+            if isinstance(conv_channels_raw, list)
+            else ""
+        )
+        num_conv_layers = int(
+            training_summary.get(
+                "num_conv_layers",
+                len(config.model.conv_channels) if model_name == "cnn_classifier" else 0,
+            )
+            or 0
+        )
+
+        dropout = float(
+            training_summary.get(
+                "dropout",
+                config.model.dropout
+                if model_name == "cnn_classifier"
+                else config.model.head_dropout,
+            )
+        )
+
         rows.append(
             {
                 "experiment_name": config.experiment_name,
                 "config_path": str(experiment_config_path),
+                "model_name": model_name,
+                "backbone": backbone or "",
+                "pretrained": pretrained,
+                "freeze_backbone": freeze_backbone,
                 "optimizer": config.training.optimizer,
-                "activation": config.model.activation,
-                "conv_channels": "-".join(str(channel) for channel in config.model.conv_channels),
-                "num_conv_layers": len(config.model.conv_channels),
-                "dropout": config.model.dropout,
+                "activation": activation,
+                "conv_channels": conv_channels,
+                "num_conv_layers": num_conv_layers,
+                "dropout": dropout,
                 "augment_train": config.preprocessing.augment_train,
                 "random_horizontal_flip_p": config.preprocessing.random_horizontal_flip_p,
                 "random_rotation_degrees": config.preprocessing.random_rotation_degrees,
@@ -107,6 +150,9 @@ def main() -> int:
     ranking = results[
         [
             "experiment_name",
+            "model_name",
+            "backbone",
+            "pretrained",
             "test_accuracy",
             "macro_f1",
             "optimizer",

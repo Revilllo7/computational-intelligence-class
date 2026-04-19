@@ -1,0 +1,15 @@
+project_name: cats-dogs-cnn-template
+experiments:
+  - configs/cats_dogs_exp_baseline_adam_relu.yaml
+  - configs/cats_dogs_transfer_resnet18_pretrained.yaml
+  - configs/cats_dogs_transfer_resnet18_scratch.yaml
+  - configs/cats_dogs_transfer_mobilenet_v3_small_pretrained.yaml
+  - configs/cats_dogs_transfer_mobilenet_v3_small_scratch.yaml
+  - configs/cats_dogs_transfer_efficientnet_b0_pretrained.yaml
+  - configs/cats_dogs_transfer_efficientnet_b0_scratch.yaml
+comparison_csv: reports/comparisons/transfer_vs_scratch.csv
+comparison_json: reports/comparisons/transfer_vs_scratch.json
+accuracy_plot_png: reports/comparisons/transfer_vs_scratch_accuracy.png
+learning_curves_grid_png: reports/comparisons/transfer_vs_scratch_learning_curves.png
+confusion_matrices_grid_png: reports/comparisons/transfer_vs_scratch_confusion_matrices.png
+figure_dpi: 160

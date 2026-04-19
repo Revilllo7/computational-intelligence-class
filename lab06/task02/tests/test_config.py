@@ -23,6 +23,14 @@ def test_comparison_config_loads_yaml() -> None:
     assert config.comparison_csv == Path("reports/comparisons/experiment_matrix.csv")
 
 
+def test_transfer_config_loads_yaml() -> None:
+    config = ProjectConfig.from_yaml(Path("configs/cats_dogs_transfer_resnet18_pretrained.yaml"))
+    assert config.model.name == "transfer_classifier"
+    assert config.model.backbone == "resnet18"
+    assert config.model.pretrained is True
+    assert config.model.freeze_backbone is True
+
+
 def test_project_config_raises_for_missing_file() -> None:
     with pytest.raises(FileNotFoundError):
         ProjectConfig.from_yaml(Path("configs/not_existing.yaml"))
