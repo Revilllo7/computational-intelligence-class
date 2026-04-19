@@ -1,0 +1,57 @@
+project_name: cats-dogs-cnn-template
+experiment_name: cats_dogs_exp_augment_strong
+random_seed: 42
+
+paths:
+  raw_zip: data/raw/dogs-and-cats.zip
+  extracted_dir: data/interim/dogs-and-cats
+  dataset_metadata: data/raw/dataset_metadata_cats_dogs_exp_augment_strong.json
+  processed_dir: data/processed/cats_dogs_exp_augment_strong
+  train_manifest_csv: data/processed/cats_dogs_exp_augment_strong/train_manifest.csv
+  validation_manifest_csv: data/processed/cats_dogs_exp_augment_strong/validation_manifest.csv
+  test_manifest_csv: data/processed/cats_dogs_exp_augment_strong/test_manifest.csv
+  preprocessor_artifact: models/cats_dogs_exp_augment_strong/preprocessor.json
+  model_checkpoint: models/cats_dogs_exp_augment_strong/model.pt
+  training_history_csv: reports/cats_dogs_exp_augment_strong/training_history.csv
+  training_summary_json: reports/cats_dogs_exp_augment_strong/training_summary.json
+  evaluation_json: reports/cats_dogs_exp_augment_strong/evaluation.json
+  predictions_csv: reports/cats_dogs_exp_augment_strong/test_predictions.csv
+  confusion_matrix_png: reports/cats_dogs_exp_augment_strong/confusion_matrix.png
+  training_curves_png: reports/cats_dogs_exp_augment_strong/training_curves.png
+  misclassified_dir: reports/cats_dogs_exp_augment_strong/misclassified_images
+  misclassified_summary_json: reports/cats_dogs_exp_augment_strong/misclassified_summary.json
+
+data:
+  class_names: [cat, dog]
+  test_size: 0.1
+  validation_size: 0.1
+  max_samples: 4000
+
+preprocessing:
+  image_size: 128
+  normalize_mean: [0.485, 0.456, 0.406]
+  normalize_std: [0.229, 0.224, 0.225]
+  augment_train: true
+  random_horizontal_flip_p: 0.75
+  random_rotation_degrees: 20.0
+  color_jitter_brightness: 0.35
+  color_jitter_contrast: 0.35
+
+model:
+  name: cnn_classifier
+  activation: relu
+  conv_channels: [32, 64, 128]
+  hidden_dim: 128
+  dropout: 0.3
+
+training:
+  learning_rate: 0.001
+  epochs: 20
+  batch_size: 64
+  weight_decay: 0.0001
+  optimizer: adam
+  sgd_momentum: 0.9
+  num_workers: 2
+
+visualization:
+  figure_dpi: 160
