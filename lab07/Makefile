@@ -1,20 +1,24 @@
-.PHONY: help setup install hooks run-all run-task01 run-task02 run-task03 test clean
+.PHONY: help setup install hooks run-all run-task01 run-task01-config run-task02 run-task03 test clean
 
 ROOT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+TASK01_DEFAULT_CONFIG := task01/configs/knapsack_default.yaml
+TASK01_CONFIG ?= $(TASK01_DEFAULT_CONFIG)
 
 help:
 	@echo "Lab07 - Genetic Algorithms Tasks"
 	@echo "================================"
 	@echo "Available commands:"
-	@echo "  make setup        - Setup uv environment and install dependencies"
-	@echo "  make install      - Alias for setup"
-	@echo "  make hooks        - Install pre-commit hooks (requires pre-commit)"
-	@echo "  make run-all      - Run all tasks"
-	@echo "  make run-task01   - Run Task 01 (Knapsack Problem)"
-	@echo "  make run-task02   - Run Task 02 (Alloy Durability)"
-	@echo "  make run-task03   - Run Task 03 (Maze Solving)"
-	@echo "  make test         - Run tests"
-	@echo "  make clean        - Clean up generated files"
+	@echo "  make setup             - Setup uv environment and install dependencies"
+	@echo "  make install           - Alias for setup"
+	@echo "  make hooks             - Install pre-commit hooks (requires pre-commit)"
+	@echo "  make run-all           - Run all tasks"
+	@echo "  make run-task01        - Run Task 01 with default config"
+	@echo "  make run-task01-all    - Run Task 01 with all configs in task01/configs/"
+	@echo "  make run-task01-config - TASK01_CONFIG=task01/configs/<name>.yaml - Run Task 01 with selected config"
+	@echo "  make run-task02        - Run Task 02 (Alloy Durability)"
+	@echo "  make run-task03        - Run Task 03 (Maze Solving)"
+	@echo "  make test              - Run tests"
+	@echo "  make clean             - Clean up generated files"
 
 setup:
 	uv sync --group dev
@@ -26,14 +30,24 @@ install: setup
 
 run-all:
 	@echo "Running Task 01..."
-	uv run -m task01.src.knapsack_ga
+	uv run -m task01.src.knapsack_ga --config $(TASK01_DEFAULT_CONFIG)
 	@echo "\nRunning Task 02..."
 	uv run -m task02.src.alloy_ga
 	@echo "\nRunning Task 03..."
 	uv run -m task03.src.maze_ga
 
 run-task01:
-	uv run -m task01.src.knapsack_ga
+	uv run -m task01.src.knapsack_ga --config $(TASK01_DEFAULT_CONFIG)
+
+run-task01-all:
+	@for config in $(ROOT_DIR)task01/configs/*.yaml; do \
+		echo "Running Task 01 with config: $$config"; \
+		uv run -m task01.src.knapsack_ga --config "$$config"; \
+		echo ""; \
+	done
+
+run-task01-config:
+	uv run -m task01.src.knapsack_ga --config $(TASK01_CONFIG)
 
 run-task02:
 	uv run -m task02.src.alloy_ga
