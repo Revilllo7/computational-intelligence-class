@@ -1,0 +1,30 @@
+experiment_name: null
+output_root: task01/experiments
+problem:
+  capacity: 25.0
+  target_value: 1630.0
+ga:
+  num_generations: 200
+  solutions_per_population: 20
+  num_parents_mating: 8
+  parent_selection_type: sss
+  mutation_type: random
+  mutation_percent_genes: 15
+  crossover_type: single_point
+  keep_parents: 2
+runs:
+  num_runs: 10
+  single_run_seed: 292583
+  seed_strategy: random
+  base_seed: 252583
+plotting:
+  enabled: true
+  single_run_curve: true
+  multi_run_overlay: true
+  aggregate_trend: true
+  figure_dpi: 120
+gif:
+  enabled: true
+  fitness_animation: true
+  population_animation: true
+  frame_duration_ms: 320

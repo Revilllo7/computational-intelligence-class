@@ -1,0 +1,35 @@
+repos:
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: ruff check
+        entry: bash -c 'cd lab07 && uv run ruff check --fix --config pyproject.toml .'
+        language: system
+        pass_filenames: false
+        files: ^lab07/.*\.py$
+
+      - id: ruff-format
+        name: ruff format
+        entry: bash -c 'cd lab07 && uv run ruff format --check --config pyproject.toml .'
+        language: system
+        pass_filenames: false
+        files: ^lab07/.*\.py$
+
+      - id: pyright
+        name: pyright
+        entry: bash -c 'cd lab07 && uv run pyright'
+        language: system
+        types: [python]
+        pass_filenames: false
+      - id: pytest
+        name: pytest
+        entry: bash -c 'cd lab07 && uv run pytest'
+        language: system
+        pass_filenames: false
+        stages: [pre-push]
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.13.9
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
