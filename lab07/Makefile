@@ -17,32 +17,44 @@ help:
 	@echo "  make clean        - Clean up generated files"
 
 setup:
-	cd $(ROOT_DIR) && uv sync --group dev
-	cd $(ROOT_DIR) && uv run pre-commit install
-	cd $(ROOT_DIR) && uv run pre-commit install --hook-type pre-push
-	cd $(ROOT_DIR) && uv run pre-commit install --hook-type commit-msg
+	uv sync --group dev
+	uv run pre-commit install
+	uv run pre-commit install --hook-type pre-push
+	uv run pre-commit install --hook-type commit-msg
 
 install: setup
 
 run-all:
 	@echo "Running Task 01..."
-	cd $(ROOT_DIR) && uv run -m task01.src.knapsack_ga
+	uv run -m task01.src.knapsack_ga
 	@echo "\nRunning Task 02..."
-	cd $(ROOT_DIR) && uv run -m task02.src.alloy_ga
+	uv run -m task02.src.alloy_ga
 	@echo "\nRunning Task 03..."
-	cd $(ROOT_DIR) && uv run -m task03.src.maze_ga
+	uv run -m task03.src.maze_ga
 
 run-task01:
-	cd $(ROOT_DIR) && uv run -m task01.src.knapsack_ga
+	uv run -m task01.src.knapsack_ga
 
 run-task02:
-	cd $(ROOT_DIR) && uv run -m task02.src.alloy_ga
+	uv run -m task02.src.alloy_ga
 
 run-task03:
-	cd $(ROOT_DIR) && uv run -m task03.src.maze_ga
+	uv run -m task03.src.maze_ga
 
 test:
-	cd $(ROOT_DIR) && uv run pytest -v
+	uv run pytest
+
+ruff:
+	uv run ruff check .
+
+ruff-fix:
+	uv run ruff check . --fix
+
+format:
+	uv run ruff format .
+
+pyright:
+	uv run pyright
 
 clean:
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true

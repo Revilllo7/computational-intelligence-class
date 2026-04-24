@@ -18,7 +18,7 @@ def decode_selected_items(
     """Convert a 0/1 chromosome into a list of selected item rows."""
     selected: list[dict[str, Any]] = []
     for gene, item_id, name, value, weight in zip(
-        chromosome, item_ids, item_names, item_values, item_weights
+        chromosome, item_ids, item_names, item_values, item_weights, strict=True
     ):
         if int(gene) == 1:
             selected.append(

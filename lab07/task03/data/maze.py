@@ -33,20 +33,23 @@ maze = [
 ]
 
 # Coordinates
-START = (1, 1)      # Top-left of internal grid
-GOAL = (10, 10)     # Bottom-right of internal grid
-MAX_STEPS = 30      # Maximum allowed steps
+START = (1, 1)  # Top-left of internal grid
+GOAL = (10, 10)  # Bottom-right of internal grid
+MAX_STEPS = 30  # Maximum allowed steps
+
 
 def print_maze():
     """Print maze for visualization"""
     for row in maze:
-        print(''.join(['█' if cell == 1 else ' ' for cell in row]))
+        print("".join(["█" if cell == 1 else " " for cell in row]))
+
 
 def is_passable(x: int, y: int) -> bool:
     """Check if a cell is passable (within bounds and not a wall)"""
     if 0 <= x < 12 and 0 <= y < 12:
         return maze[y][x] == 0
     return False
+
 
 if __name__ == "__main__":
     print("Maze:")

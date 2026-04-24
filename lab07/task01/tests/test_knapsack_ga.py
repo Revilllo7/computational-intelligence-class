@@ -16,7 +16,8 @@ from task01.src.knapsack_ga import (
 def test_overweight_penalty_is_strongly_negative() -> None:
     """Overweight solutions should be punished below zero in this setup."""
     overweight_solution = np.ones(11, dtype=int)
-    fitness = knapsack_fitness(None, overweight_solution, 0)
+    ga = create_ga_instance(random_seed=0)
+    fitness = knapsack_fitness(ga, overweight_solution, 0)
     assert fitness < 0
 
 

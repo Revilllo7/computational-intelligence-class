@@ -1,16 +1,20 @@
 repos:
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.5
-    hooks:
-      - id: ruff-check
-        args: [--fix, --config=lab07/pyproject.toml]
-        files: ^lab07/
-      - id: ruff-format
-        args: [--check, --config=lab07/pyproject.toml]
-        files: ^lab07/
-
   - repo: local
     hooks:
+      - id: ruff-check
+        name: ruff check
+        entry: bash -c 'cd lab07 && uv run ruff check --fix --config pyproject.toml .'
+        language: system
+        pass_filenames: false
+        files: ^lab07/.*\.py$
+
+      - id: ruff-format
+        name: ruff format
+        entry: bash -c 'cd lab07 && uv run ruff format --check --config pyproject.toml .'
+        language: system
+        pass_filenames: false
+        files: ^lab07/.*\.py$
+
       - id: pyright
         name: pyright
         entry: bash -c 'cd lab07 && uv run pyright'

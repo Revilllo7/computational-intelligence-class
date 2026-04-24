@@ -19,16 +19,18 @@ dev = [
     "pre-commit>=4.3.0",
     "commitizen>=4.13.9",
     "python-dotenv>=1.1.0",
+    "pyright[nodejs]>=1.1.408",
+    "ruff>=0.15.5",
 ]
 
 [tool.ruff]
 target-version = "py311"
 line-length = 100
 exclude = [
-  ".venv",
-  ".pytest_cache",
-  ".ruff_cache",
-  "__pycache__",
+	".venv",
+	".pytest_cache",
+	".ruff_cache",
+	"__pycache__",
 ]
 
 [tool.ruff.lint]

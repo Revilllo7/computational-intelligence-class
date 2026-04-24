@@ -1,5 +1,5 @@
 # id: przedmiot, wartość, waga
-items = { 
+items = {
     "item1": {"name": "zegar", "value": 100, "weight": 7.0},
     "item2": {"name": "obraz-pejzaż", "value": 300, "weight": 7.0},
     "item3": {"name": "obraz-portret", "value": 200, "weight": 6.0},
@@ -10,5 +10,5 @@ items = {
     "item8": {"name": "porcelana", "value": 250, "weight": 3.0},
     "item9": {"name": "figurka z brązu", "value": 300, "weight": 10.0},
     "item10": {"name": "skórzana torebka", "value": 280, "weight": 3.0},
-    "item11": {"name": "odkurzacz", "value": 300, "weight": 15.0}
+    "item11": {"name": "odkurzacz", "value": 300, "weight": 15.0},
 }
