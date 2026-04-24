@@ -17,7 +17,7 @@ def test_load_default_config() -> None:
     assert config.output_root == DEFAULT_OUTPUT_ROOT.resolve()
     assert config.output_dir == (DEFAULT_OUTPUT_ROOT.resolve() / "knapsack_default")
     assert config.experiment.problem.capacity == 25.0
-    assert config.experiment.ga.mutation_percent_genes == 10
+    assert config.experiment.ga.mutation_percent_genes == 15
 
 
 def test_output_directory_uses_explicit_experiment_name(tmp_path: Path) -> None:
