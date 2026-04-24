@@ -58,7 +58,8 @@ reportUnknownArgumentType = "none"
 reportUnknownParameterType = "none"
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+pythonpath = ["."]
+testpaths = ["task01/tests"]
 
 [tool.commitizen]
 name = "cz_conventional_commits"
