@@ -63,6 +63,7 @@ reportUnknownParameterType = "none"
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["task01/tests", "task02/tests"]
+addopts = ["--import-mode=importlib"]
 
 [tool.commitizen]
 name = "cz_conventional_commits"
