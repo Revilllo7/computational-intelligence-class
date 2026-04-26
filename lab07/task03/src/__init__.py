@@ -1,1 +1,1 @@
-"""Task 03 source code"""
+"""Task 03 source code."""
