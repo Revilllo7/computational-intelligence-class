@@ -49,7 +49,7 @@ indent-style = "space"
 line-ending = "auto"
 
 [tool.pyright]
-include = ["task01/src", "task01/tests", "task02/src", "task02/tests"]
+include = ["task01/src", "task01/tests", "task02/src", "task02/tests", "task03/src", "task03/tests"]
 exclude = [".venv", "__pycache__", "**/node_modules", "**/.*"]
 typeCheckingMode = "standard"
 venvPath = "./"
@@ -62,7 +62,7 @@ reportUnknownParameterType = "none"
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
-testpaths = ["task01/tests", "task02/tests"]
+testpaths = ["task01/tests", "task02/tests", "task03/tests"]
 addopts = ["--import-mode=importlib"]
 
 [tool.commitizen]

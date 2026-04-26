@@ -62,6 +62,8 @@ coverage.xml
 *.png
 *.jpg
 output/
+*.gif
+pytest_smoke_artifacts/
 
 # Virtual environment
 venv/

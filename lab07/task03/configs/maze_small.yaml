@@ -1,0 +1,44 @@
+experiment_name: maze_small
+output_root: task03/experiments
+
+problem:
+  start: [1, 1]
+  goal: [10, 10]
+  max_steps: 30
+  target_steps: 20
+
+fitness:
+  success_bonus: 10000
+  distance_weight: 35
+  progress_weight: 60
+  efficiency_weight: 12
+  solved_step_penalty: 170
+  invalid_move_penalty: 20
+  revisit_penalty: 8
+  stagnation_penalty: 14
+  exploration_reward: 0
+
+ga:
+  num_generations: 320
+  solutions_per_population: 80
+  num_parents_mating: 24
+  parent_selection_type: sss
+  mutation_type: random
+  mutation_num_genes: 1
+  crossover_type: single_point
+  keep_parents: 2
+
+runs:
+  num_runs: 10
+  timing_runs: 10
+  single_run_seed: 42
+  seed_strategy: incremental
+  base_seed: 42
+
+gif:
+  enabled: true
+  ga_evolution: true
+  astar_solving: true
+  frame_duration_ms: 130
+  ga_sample_every_n_generations: 4
+  astar_sample_every_n_steps: 1

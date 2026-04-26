@@ -55,6 +55,13 @@ run-task02:
 run-task03:
 	uv run -m task03.src.maze_ga
 
+run-task03-all:
+	@for config in $(ROOT_DIR)task03/configs/*.yaml; do \
+		echo "Running Task 03 with config: $$config"; \
+		uv run -m task03.src.maze_ga --config "$$config"; \
+		echo ""; \
+	done
+
 test:
 	uv run pytest
 
