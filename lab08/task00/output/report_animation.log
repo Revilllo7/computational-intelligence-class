@@ -1,0 +1,4 @@
+2026-05-01 18:07:04,442 - pyswarms.single.global_best - INFO - Optimize for 50 iters with {'c1': 0.5, 'c2': 0.3, 'w': 0.5}
+2026-05-01 18:07:04,449 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 0.004594584039798833, best pos: [-0.04432605  0.05128143]
+2026-05-01 18:07:05,664 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.ImageMagickWriter'>
+2026-05-01 18:07:05,664 - matplotlib.animation - INFO - MovieWriter._run: running command: convert -size 1000x800 -depth 8 -delay 10.0 -loop 0 rgba:- -layers OptimizePlus ./lab08/task00/output/plot0.gif
