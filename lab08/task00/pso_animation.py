@@ -1,13 +1,35 @@
-import pyswarms as ps
-from pyswarms.utils.functions import single_obj as fx
-from pyswarms.utils.plotters.formatters import Mesher
-from pyswarms.utils.plotters.plotters import plot_contour
+"""Contour animation demo for task00."""
 
-OUTPUT_PATH = "./lab08/task00/output/"
+from pathlib import Path
+
+import numpy as np
+from pyswarms.utils.functions import single_obj as fx
+
+from common.pso_utils import (
+    make_global_best_pso,
+    remove_report_log,
+    save_contour_animation,
+    working_directory,
+)
+
 options = {"c1": 0.5, "c2": 0.3, "w": 0.5}
-optimizer = ps.single.GlobalBestPSO(n_particles=10, dimensions=2, options=options)
-optimizer.optimize(fx.sphere, iters=50)
-# tworzenie animacji
-m = Mesher(fx.sphere)  # pyright: ignore[reportCallIssue]
-animation = plot_contour(pos_history=optimizer.pos_history, mesher=m, mark=(0, 0))
-animation.save(OUTPUT_PATH + "plot0.gif", writer="imagemagick", fps=10)
+OUTPUT_DIR = Path(__file__).resolve().parent / "output"
+
+with working_directory(OUTPUT_DIR):
+    optimizer = make_global_best_pso(
+        n_particles=10,
+        dimensions=2,
+        options=options,
+        lower_bound=-1.0,
+        upper_bound=1.0,
+    )
+    optimizer.optimize(fx.sphere, iters=50)
+
+save_contour_animation(
+    np.asarray(optimizer.pos_history, dtype=float),
+    fx.sphere,
+    OUTPUT_DIR / "plot0.gif",
+    mark=(0, 0),
+    fps=10,
+)
+remove_report_log()
