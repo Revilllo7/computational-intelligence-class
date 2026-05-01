@@ -14,8 +14,8 @@ alloy:
   upper_bound: 1.0
   active_metal_threshold: 0.05
   n_particles: 10
-  iters: 50
-  target_durability: 2.833945350484618
+  iters: 200
+  target_durability: 2.84
 
 pso_options:
   c1: 0.5

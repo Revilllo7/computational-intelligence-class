@@ -1,1 +1,1 @@
-"""Particle Swarm Optimization for Alloy durability optimization"""
+"""Particle Swarm Optimization for alloy durability optimization."""
