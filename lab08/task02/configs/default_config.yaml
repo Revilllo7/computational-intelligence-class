@@ -1,0 +1,10 @@
+# Default ACO parameters for TSP Task02
+# Baseline configuration inspired by task00 example
+
+# Baseline configuration (balanced exploration vs exploitation)
+ant_count: 300
+alpha: 0.5           # Pheromone importance
+beta: 1.2            # Distance/heuristic importance
+pheromone_evaporation_rate: 0.40
+pheromone_constant: 1000.0
+iterations: 300
