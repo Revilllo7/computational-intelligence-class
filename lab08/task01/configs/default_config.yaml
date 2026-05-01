@@ -1,0 +1,28 @@
+experiment_name: default
+output_root: task01/experiments
+
+sphere:
+  dimensions: 2
+  lower_bound: 1.0
+  upper_bound: 2.0
+  n_particles: 10
+  iters: 200
+
+alloy:
+  dimensions: 6
+  lower_bound: 0.0
+  upper_bound: 1.0
+  active_metal_threshold: 0.05
+  n_particles: 10
+  iters: 50
+  target_durability: 2.833945350484618
+
+pso_options:
+  c1: 0.5
+  c2: 0.3
+  w: 0.5
+
+plotting:
+  enabled: true
+  save_cost_plot: true
+  figure_dpi: 120
