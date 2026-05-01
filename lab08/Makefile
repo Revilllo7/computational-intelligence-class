@@ -1,7 +1,7 @@
 .PHONY: help setup install hooks run-all run-task01 run-task01-config run-task02 run-task03 test clean
 
 ROOT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-TASK01_DEFAULT_CONFIG := task01/configs/default.yaml
+TASK01_DEFAULT_CONFIG := task01/configs/default-config.yaml
 TASK01_CONFIG ?= $(TASK01_DEFAULT_CONFIG)
 
 help:
