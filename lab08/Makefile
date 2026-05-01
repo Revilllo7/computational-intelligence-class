@@ -58,6 +58,13 @@ run-task01-config:
 run-task02:
 	uv run -m task02.src.tsp_aco
 
+run-task02-all:
+	@for config in $(ROOT_DIR)task02/configs/*.yaml; do \
+		echo "Running Task 02 with config: $$config"; \
+		uv run -m task02.src.tsp_aco --config "$$config"; \
+		echo ""; \
+	done
+
 run-task03:
 	uv run -m task03.src.maze_aco
 	uv run -m task03.src.maze_pso
