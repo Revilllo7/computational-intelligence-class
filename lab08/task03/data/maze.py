@@ -5,17 +5,12 @@ Maze Definition for Task 03
 12x12 maze with borders (10x10 internal grid)
 0 = passable
 1 = wall
-
-Format:
-- First row/column: border
-- Last row/column: border
-- Interior: 10x10 grid with walls
 """
 
 # 12x12 maze (including borders)
 # Start: (1, 1) - top-left corner of internal grid
 # Goal: (10, 10) - bottom-right corner of internal grid
-# Maximum steps allowed: 30 (actual solution ~20)
+# Maximum steps allowed: 30 (actual solution 20)
 
 maze = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
