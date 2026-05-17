@@ -3,7 +3,13 @@
 import json
 from pathlib import Path
 
-from .utils.process_document import process_document
+try:
+    from .utils.process_document import process_document
+except ImportError:  # pragma: no cover - fallback for direct script execution
+    import sys
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from src.utils.process_document import process_document
 
 
 def run_article_pipeline(
@@ -38,6 +44,7 @@ def run_article_pipeline(
     # Optionally save full counts to JSON (ordered by count desc)
     if save_json:
         outpath = Path(save_json)
+        outpath.parent.mkdir(parents=True, exist_ok=True)
         sorted_counts = sorted(counts.items(), key=lambda x: x[1], reverse=True)
         outpath.write_text(
             json.dumps(sorted_counts, ensure_ascii=False, indent=2), encoding="utf-8"

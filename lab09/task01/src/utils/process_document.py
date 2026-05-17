@@ -7,8 +7,26 @@ frequent words and creates a word cloud (uses existing `create_word_cloud`).
 
 import contextlib
 from collections import Counter
+from pathlib import Path
 
-OUTPUT_DIR = "output"
+OUTPUT_DIR = Path("output")
+
+
+def _ensure_nltk_resources() -> None:
+    """Download the NLTK corpora required by the text pipeline if missing."""
+    import nltk
+
+    resources = (
+        ("punkt_tab", "tokenizers/punkt_tab/english/"),
+        ("punkt", "tokenizers/punkt"),
+        ("stopwords", "corpora/stopwords"),
+        ("wordnet", "corpora/wordnet"),
+    )
+    for resource_name, resource_path in resources:
+        try:
+            nltk.data.find(resource_path)
+        except LookupError:
+            nltk.download(resource_name, quiet=True)
 
 
 def process_document(
@@ -33,6 +51,8 @@ def process_document(
     from .tokenize import tokenize_text_punct
     from .word_cloud import create_word_cloud
 
+    _ensure_nltk_resources()
+
     # 1. Tokenize
     tokens = tokenize_text_punct(text)
     token_count = len(tokens)
@@ -52,6 +72,7 @@ def process_document(
 
     # 5. Plot top-k bar chart and create a word cloud if requested
     if show_plots:
+        OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
         try:
             # Use a non-interactive backend to avoid blocking in headless CI/servers
             import matplotlib
