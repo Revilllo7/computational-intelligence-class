@@ -59,7 +59,7 @@ def _ensure_text2emotion_compatibility() -> None:
     import emoji
 
     if not hasattr(emoji, "UNICODE_EMOJI"):
-        emoji.analyze = getattr(emoji, "EMOJI_DATA", {})
+        setattr(emoji, "UNICODE_EMOJI", getattr(emoji, "EMOJI_DATA", {}))  # noqa: B010
 
 
 def _dominant_score(scores: Mapping[str, float]) -> str | None:
