@@ -6,8 +6,13 @@ setup:
 
 install: setup
 
+run-task01:
+	uv run -m task01.src.main
+
 test:
 	uv run pytest
+
+pytest: test
 
 ruff:
 	uv run ruff check .

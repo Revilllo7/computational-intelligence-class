@@ -1,0 +1,4 @@
+task01/data/article.txt
+task01/output/counts.json
+task01/output/top_words.png
+task01/output/wordcloud.png
