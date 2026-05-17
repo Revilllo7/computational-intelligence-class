@@ -2,3 +2,9 @@ task01/data/article.txt
 task01/output/counts.json
 task01/output/top_words.png
 task01/output/wordcloud.png
+
+task02/data/negative_opinion.txt
+task02/data/neutral_opinion.txt
+task02/data/positive_opinion.txt
+task02/output/sentiment_comparison.json
+task02/output/sentiment_comparison.png
