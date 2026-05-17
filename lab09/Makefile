@@ -9,7 +9,7 @@ install: setup
 run-task01:
 	uv run -m task01.src.main
 
-run task02:
+run-task02:
 	uv run -m task02.src.main
 
 test:
