@@ -13,3 +13,6 @@ praw.ini
 
 task03/data/processed/emotions.csv
 task03/data/raw/posts.csv
+
+task04/data/
+task04/output/
