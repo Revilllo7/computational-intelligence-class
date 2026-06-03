@@ -1,0 +1,1 @@
+"""Titanic and association rules."""
