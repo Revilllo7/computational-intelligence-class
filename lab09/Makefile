@@ -15,6 +15,9 @@ run-task02:
 run-task03:
 	uv run -m task03.src.main
 
+run-task04:
+	uv run -m task04.src.main
+
 test:
 	uv run pytest
 
