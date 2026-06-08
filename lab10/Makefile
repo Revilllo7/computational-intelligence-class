@@ -20,10 +20,10 @@ run-task02:
 	uv run -m task02.src.fuzzy_tips
 
 run-task03:
-	uv run -m task03.src.main
+	uv run -m task03.src.fuzzy_pendulum
 
 run-task04:
-	uv run -m task04.src.main
+	uv run -m task04.src.titanic_apriori
 
 test:
 	uv run pytest
