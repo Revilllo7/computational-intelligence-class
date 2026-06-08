@@ -7,10 +7,17 @@ setup:
 install: setup
 
 run-task01:
-	uv run -m task01.src.main
+	uv run -m task01.src.breakout
+	uv run -m task01.src.cart_pole
+	uv run -m task01.src.frozen_lake
+	uv run -m task01.src.half_cheetah
+	uv run -m task01.src.lunar_lander
+	uv run -m task01.src.pendulum
+	uv run -m task01.src.smart_cart_pole
+	uv run -m task01.src.smart_frozen_lake
 
 run-task02:
-	uv run -m task02.src.main
+	uv run -m task02.src.fuzzy_tips
 
 run-task03:
 	uv run -m task03.src.main
