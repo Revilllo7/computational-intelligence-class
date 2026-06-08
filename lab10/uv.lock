@@ -737,6 +737,7 @@ dependencies = [
     { name = "pydantic" },
     { name = "pyyaml" },
     { name = "scikit-learn" },
+    { name = "simpful" },
     { name = "swig" },
     { name = "tensorflow" },
     { name = "torch" },
@@ -772,6 +773,7 @@ requires-dist = [
     { name = "pydantic", specifier = ">=2.7.0" },
     { name = "pyyaml", specifier = ">=6.0.0" },
     { name = "scikit-learn", specifier = ">=1.8.0" },
+    { name = "simpful", specifier = ">=2.12.0" },
     { name = "swig", specifier = ">=4.4.1" },
     { name = "tensorflow", specifier = ">=2.21.0" },
     { name = "torch", specifier = ">=2.12.0" },
@@ -1887,6 +1889,19 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/0d/1c/73e719955c59b8e424d015ab450f51c0af856ae46ea2da83eba51cc88de1/setuptools-81.0.0.tar.gz", hash = "sha256:487b53915f52501f0a79ccfd0c02c165ffe06631443a886740b91af4b7a5845a", size = 1198299, upload-time = "2026-02-06T21:10:39.601Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/e1/e3/c164c88b2e5ce7b24d667b9bd83589cf4f3520d97cad01534cd3c4f55fdb/setuptools-81.0.0-py3-none-any.whl", hash = "sha256:fdd925d5c5d9f62e4b74b30d6dd7828ce236fd6ed998a08d81de62ce5a6310d6", size = 1062021, upload-time = "2026-02-06T21:10:37.175Z" },
+]
+
+[[package]]
+name = "simpful"
+version = "2.12.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+    { name = "scipy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/4f/29/eb3887c0627366d4121aae0c546dc0d7a5287dc64e6c1a00ced3645a813b/simpful-2.12.0.tar.gz", hash = "sha256:9c1290f0ad1b6674cb1567df055a809535924c714a6830f0a4aa0a8a3d60dddb", size = 27032, upload-time = "2024-02-27T12:56:10.324Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/9d/0e/aebc2fb0b0f481994179b2ee2b8e6bbf0894d971594688c018375e7076ea/simpful-2.12.0-py3-none-any.whl", hash = "sha256:333b5ec7daa199f9b87839d845f5f0aa318a98c4066e7e3b7e66e4beb18ff95e", size = 24692, upload-time = "2024-02-27T12:56:08.072Z" },
 ]
 
 [[package]]
