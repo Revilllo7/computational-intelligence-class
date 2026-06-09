@@ -24,6 +24,12 @@ dependencies = [
     "mlxtend>=0.24.0",
     "simpful>=2.12.0",
     "seaborn>=0.13.2",
+    "ale-py>=0.12.0",
+    "mujoco>=3.9.0",
+    "ImageIO>=2.37.3",
+    "swig>=4.4.1",
+    "Box2D>=2.3.10",
+    "pygame>=2.6.1",
 ]
 
 [dependency-groups]
